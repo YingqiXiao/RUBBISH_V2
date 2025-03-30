@@ -29,6 +29,7 @@
 #include "usart.h"
 #include "bsp_uart.h"
 #include "string.h"
+#include "key.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -53,6 +54,7 @@
 osThreadId defaultTaskHandle;
 osThreadId WarnTaskHandle;
 osThreadId UartTaskHandle;
+osThreadId KeyTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -62,6 +64,7 @@ osThreadId UartTaskHandle;
 void StartDefaultTask(void const * argument);
 void Warn_Task(void const * argument);
 void Uart_Task(void const * argument);
+void Key_Task(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -119,6 +122,10 @@ void MX_FREERTOS_Init(void) {
   /* definition and creation of UartTask */
   osThreadDef(UartTask, Uart_Task, osPriorityNormal, 0, 128);
   UartTaskHandle = osThreadCreate(osThread(UartTask), NULL);
+
+  /* definition and creation of KeyTask */
+  osThreadDef(KeyTask, Key_Task, osPriorityNormal, 0, 128);
+  KeyTaskHandle = osThreadCreate(osThread(KeyTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -200,6 +207,25 @@ void Uart_Task(void const * argument)
     osDelay(10);
   }
   /* USER CODE END Uart_Task */
+}
+
+/* USER CODE BEGIN Header_Key_Task */
+/**
+* @brief Function implementing the KeyTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Key_Task */
+void Key_Task(void const * argument)
+{
+  /* USER CODE BEGIN Key_Task */
+  /* Infinite loop */
+  for(;;)
+  {
+	Key_Read();	  
+    osDelay(10);
+  }
+  /* USER CODE END Key_Task */
 }
 
 /* Private application code --------------------------------------------------*/
