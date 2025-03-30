@@ -42,9 +42,9 @@ rubbish_v2\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers
 rubbish_v2\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 rubbish_v2\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 rubbish_v2\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
-rubbish_v2\freertos.o: ../BSP/syn6288.h
-rubbish_v2\freertos.o: ../Core/Inc/usart.h
-rubbish_v2\freertos.o: ../BSP/bsp_uart.h
+rubbish_v2\freertos.o: ../BSP/oled.h
+rubbish_v2\freertos.o: ../Core/Inc/gpio.h
 rubbish_v2\freertos.o: D:\Keil\ARM\ARMCC\Bin\..\include\string.h
-rubbish_v2\freertos.o: ../BSP/key.h
-rubbish_v2\freertos.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdbool.h
+rubbish_v2\freertos.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdio.h
+rubbish_v2\freertos.o: ../BSP/bsp_uart.h
+rubbish_v2\freertos.o: ../Core/Inc/usart.h

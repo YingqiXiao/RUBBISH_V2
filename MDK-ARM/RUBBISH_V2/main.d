@@ -47,3 +47,4 @@ rubbish_v2\main.o: ../Core/Inc/tim.h
 rubbish_v2\main.o: ../Core/Inc/usart.h
 rubbish_v2\main.o: ../Core/Inc/gpio.h
 rubbish_v2\main.o: ../BSP/syn6288.h
+rubbish_v2\main.o: ../BSP/oled.h

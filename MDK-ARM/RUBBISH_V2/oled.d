@@ -1,6 +1,6 @@
 rubbish_v2\oled.o: ..\BSP\oled.c
 rubbish_v2\oled.o: ..\BSP\oled.h
-rubbish_v2\oled.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
+rubbish_v2\oled.o: ../Core/Inc/gpio.h
 rubbish_v2\oled.o: ../Core/Inc/main.h
 rubbish_v2\oled.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
 rubbish_v2\oled.o: ../Core/Inc/stm32f1xx_hal_conf.h
@@ -31,3 +31,4 @@ rubbish_v2\oled.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 rubbish_v2\oled.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 rubbish_v2\oled.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 rubbish_v2\oled.o: ..\BSP\oledfront.h
+rubbish_v2\oled.o: D:\Keil\ARM\ARMCC\Bin\..\include\math.h

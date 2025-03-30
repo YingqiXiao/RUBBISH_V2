@@ -25,11 +25,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "oled.h"
-#include "string.h"
-#include "stdio.h"
-#include "bsp_uart.h"
+#include "syn6288.h"
 #include "usart.h"
+#include "bsp_uart.h"
+#include "string.h"
+#include "key.h"
+#include "oled.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -118,7 +119,7 @@ void MX_FREERTOS_Init(void) {
   UartTaskHandle = osThreadCreate(osThread(UartTask), NULL);
 
   /* definition and creation of LoopTask */
-  osThreadDef(LoopTask, Loop_Task, osPriorityNormal, 0, 128);
+  osThreadDef(LoopTask, Loop_Task, osPriorityAboveNormal, 0, 128);
   LoopTaskHandle = osThreadCreate(osThread(LoopTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -158,15 +159,21 @@ void Uart_Task(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	 if(recv_end_flag == 1)
+	 if(recv_end_flag == 1)  //接收完成标志
 	 {		
 		Data_Resolve(&Uart_Flag);
-		rx_len = 0;
-		recv_end_flag = 0;
+		rx_len = 0;//清除计数
+		recv_end_flag = 0;//清除接收结束标志位
+//			for(uint8_t i=0;i<rx_len;i++)
+//				{
+//					rx_buffer[i]=0;//清接收缓存
+//				}
 		memset(rx_buffer,0,rx_len);
 		 
-	 }	 
-	HAL_UART_Receive_DMA(&huart1,rx_buffer,BUFFER_SIZE);//???′?DMA????
+	 }
+	 
+	HAL_UART_Receive_DMA(&huart1,rx_buffer,BUFFER_SIZE);//重新打开DMA接收
+	 
     osDelay(10);
   }
   /* USER CODE END Uart_Task */
@@ -185,10 +192,10 @@ void Loop_Task(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	char text[30];
-	sprintf(text,"hello");
-	OLED_ShowString(0,0,(uint8_t *)text,sizeof(text));	  
-    osDelay(10);
+  OLEDoperate_gram(PEN_CLEAR);
+  OLEDprintf(0,2,"Doggy SoftIIC");
+  OLEDrefresh_gram();
+    osDelay(100);
   }
   /* USER CODE END Loop_Task */
 }
