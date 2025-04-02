@@ -9,4 +9,6 @@
 #define SERVO180 0
 #define SERVO270 1
 
+void Servo_Control(uint8_t Servo_Flag,uint16_t Servo_Angle,uint8_t Servo_Class);
+
 #endif

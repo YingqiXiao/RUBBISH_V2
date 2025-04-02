@@ -818,6 +818,16 @@
               <FileType>5</FileType>
               <FilePath>..\BSP\key.h</FilePath>
             </File>
+            <File>
+              <FileName>bsp_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\bsp_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_task.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\BSP\bsp_task.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

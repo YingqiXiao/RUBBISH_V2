@@ -11,6 +11,15 @@
 #define FIRST_SENSOR 4
 #define SECOND_SENSOR 5
 
-bool Sensor_Read(uint8_t Sensor_Flag);
+typedef struct{
+
+bool sensor_state;
+uint8_t sensor_flag;
+	
+}sensor_t;
+extern sensor_t sensor[];
+
+void Sensor_Read(void);
+void Sensor_Judge(void);
 
 #endif

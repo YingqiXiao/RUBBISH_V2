@@ -34,6 +34,7 @@ void DMA_Usart1_Read(uint8_t *Data,uint8_t len)//串口接收封装
 	HAL_UART_Receive_DMA(&huart1,Data,len);//重新打开DMA接收
 }
 
+
 void Data_Resolve(Uart_Flag_t *ptr)
 {
 

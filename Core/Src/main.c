@@ -28,6 +28,8 @@
 /* USER CODE BEGIN Includes */
 #include "syn6288.h"
 #include "oled.h"
+#include "bsp_task.h"
+#include "eeprom.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -104,6 +106,7 @@ int main(void)
   HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_2);
   OLED_Init();
   OLED_Clear();
+  Init_Task();  
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */

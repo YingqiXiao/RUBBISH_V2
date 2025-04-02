@@ -30,3 +30,7 @@ rubbish_v2\sensor.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 rubbish_v2\sensor.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 rubbish_v2\sensor.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 rubbish_v2\sensor.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdbool.h
+rubbish_v2\sensor.o: ..\BSP\bsp_motor.h
+rubbish_v2\sensor.o: ../Core/Inc/usart.h
+rubbish_v2\sensor.o: ..\BSP\bsp_uart.h
+rubbish_v2\sensor.o: ..\BSP\syn6288.h

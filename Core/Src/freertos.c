@@ -30,6 +30,10 @@
 #include "stdio.h"
 #include "bsp_uart.h"
 #include "usart.h"
+#include "sensor.h"
+#include "bsp_motor.h"
+#include "key.h"
+#include "bsp_task.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -54,6 +58,7 @@
 osThreadId defaultTaskHandle;
 osThreadId UartTaskHandle;
 osThreadId LoopTaskHandle;
+osThreadId SensorTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -63,6 +68,7 @@ osThreadId LoopTaskHandle;
 void StartDefaultTask(void const * argument);
 void Uart_Task(void const * argument);
 void Loop_Task(void const * argument);
+void Sensor_Task(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -121,6 +127,10 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(LoopTask, Loop_Task, osPriorityNormal, 0, 128);
   LoopTaskHandle = osThreadCreate(osThread(LoopTask), NULL);
 
+  /* definition and creation of SensorTask */
+  osThreadDef(SensorTask, Sensor_Task, osPriorityIdle, 0, 128);
+  SensorTaskHandle = osThreadCreate(osThread(SensorTask), NULL);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -140,7 +150,7 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+	  
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -158,15 +168,10 @@ void Uart_Task(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	 if(recv_end_flag == 1)
-	 {		
 		Data_Resolve(&Uart_Flag);
-		rx_len = 0;
-		recv_end_flag = 0;
-		memset(rx_buffer,0,rx_len);
-		 
-	 }	 
-	HAL_UART_Receive_DMA(&huart1,rx_buffer,BUFFER_SIZE);//???′?DMA????
+		rx_len = 0;//清除计数
+		memset(rx_buffer,0,rx_len);		
+		HAL_UART_Receive_DMA(&huart1,rx_buffer,BUFFER_SIZE);//重新打开DMA接收
     osDelay(10);
   }
   /* USER CODE END Uart_Task */
@@ -185,12 +190,34 @@ void Loop_Task(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	char text[30];
-	sprintf(text,"hello");
-	OLED_ShowString(0,0,(uint8_t *)text,sizeof(text));	  
+	Key_Read();
+	Key_Task();
+	Display_Task();
+	Main_Task();
     osDelay(10);
   }
   /* USER CODE END Loop_Task */
+}
+
+/* USER CODE BEGIN Header_Sensor_Task */
+/**
+* @brief Function implementing the SensorTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Sensor_Task */
+void Sensor_Task(void const * argument)
+{
+  /* USER CODE BEGIN Sensor_Task */
+  /* Infinite loop */
+  for(;;)
+  {
+	Sensor_Read();
+	Sensor_Judge();
+	
+    osDelay(10);
+  }
+  /* USER CODE END Sensor_Task */
 }
 
 /* Private application code --------------------------------------------------*/

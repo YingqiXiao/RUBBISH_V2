@@ -10,6 +10,14 @@
 #define MOTOR2 1
 #define MOTOR3 2
 
+typedef struct{
+
+uint16_t motor_speed;
+	
+}motor_t;
+
+extern motor_t motor[];
+
 void Motor_Control(uint8_t Motor_Flag,uint16_t Motor_PWM,bool Motor_State);
 
 #endif

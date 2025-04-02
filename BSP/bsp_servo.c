@@ -11,12 +11,14 @@ void Servo_Control(uint8_t Servo_Flag,uint16_t Servo_Angle,uint8_t Servo_Class)
 			Servo_PWM = 50.0f + (float)Servo_Angle / 0.9f;
 			
 		}
+		break;
 		
 		case SERVO270:
 		{
 			Servo_PWM = 50.0f + (float)Servo_Angle / 1.35f;
 			
-		}		
+		}
+		break;
 	}
 	
 	switch(Servo_Flag)

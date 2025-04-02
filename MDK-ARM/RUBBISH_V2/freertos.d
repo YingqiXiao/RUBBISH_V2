@@ -48,3 +48,8 @@ rubbish_v2\freertos.o: D:\Keil\ARM\ARMCC\Bin\..\include\string.h
 rubbish_v2\freertos.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 rubbish_v2\freertos.o: ../BSP/bsp_uart.h
 rubbish_v2\freertos.o: ../Core/Inc/usart.h
+rubbish_v2\freertos.o: ../BSP/sensor.h
+rubbish_v2\freertos.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdbool.h
+rubbish_v2\freertos.o: ../BSP/bsp_motor.h
+rubbish_v2\freertos.o: ../BSP/key.h
+rubbish_v2\freertos.o: ../BSP/bsp_task.h

@@ -32,6 +32,7 @@
 "rubbish_v2\eeprom.o"
 "rubbish_v2\sensor.o"
 "rubbish_v2\key.o"
+"rubbish_v2\bsp_task.o"
 "rubbish_v2\croutine.o"
 "rubbish_v2\event_groups.o"
 "rubbish_v2\list.o"

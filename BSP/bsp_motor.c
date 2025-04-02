@@ -2,6 +2,8 @@
 #include "tim.h"
 #include "stdbool.h"
 
+motor_t motor[3] = {0};
+
 void Motor_Control(uint8_t Motor_Flag,uint16_t Motor_PWM,bool Motor_State)
 {
 	switch(Motor_Flag)
