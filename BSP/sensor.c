@@ -38,9 +38,9 @@ void Sensor_Judge(void)
 
 	if(sensor[FIRST_SENSOR].sensor_flag == 0 && sensor[SECOND_SENSOR].sensor_flag == 0)
 	{
-		Motor_Control(MOTOR1,600,MOTOR_RUN);
-		Motor_Control(MOTOR2,400,MOTOR_RUN);
-		Motor_Control(MOTOR3,500,MOTOR_RUN);
+		Motor_Control(MOTOR1,motor[0].motor_speed,MOTOR_RUN);
+		Motor_Control(MOTOR2,motor[1].motor_speed,MOTOR_RUN);
+		Motor_Control(MOTOR3,motor[2].motor_speed,MOTOR_RUN);
 	}
 	  
 	if(sensor[FIRST_SENSOR].sensor_flag == 2)

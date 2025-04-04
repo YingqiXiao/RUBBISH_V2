@@ -441,7 +441,10 @@ void Init_Task(void)
 	motor[0].motor_speed = (eeprom_read(2) << 8) + eeprom_read(3);
 	motor[1].motor_speed = (eeprom_read(4) << 8) + eeprom_read(5);
 	motor[2].motor_speed = (eeprom_read(6) << 8) + eeprom_read(7);
-	
+//	cast[0].Cast2_flag = 1;
+//	motor[0].motor_speed = 15000;
+//	motor[1].motor_speed = 1000;;
+//	motor[2].motor_speed = 1000;;		
 	Motor_Control(MOTOR1,motor[0].motor_speed,MOTOR_RUN);
 	Motor_Control(MOTOR2,motor[1].motor_speed,MOTOR_RUN);
 	Motor_Control(MOTOR3,motor[2].motor_speed,MOTOR_RUN);

@@ -36,6 +36,7 @@
 #include "bsp_task.h"
 #include "syn6288.h"
 #include "eeprom.h"
+#include "tim.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -156,9 +157,10 @@ void StartDefaultTask(void const * argument)
 	eeprom_write(6,motor[2].motor_speed >> 8);
 	eeprom_write(7,motor[2].motor_speed & 0xff);
 
-//	eeprom_write(1,1);
-//	eeprom_write(2,500 >> 8);
-//	eeprom_write(3,500 & 0xff);
+//	eeprom_write(1,1 & 0xff);  	  
+//	eeprom_write(0,1 >> 8);
+//	eeprom_write(2,1000 >> 8);
+//	eeprom_write(3,1000 & 0xff);
 //	eeprom_write(4,500 >> 8);
 //	eeprom_write(5,500 & 0xff);
 //	eeprom_write(6,500 >> 8);
@@ -180,7 +182,11 @@ void Loop_Task(void const * argument)
   /* Infinite loop */
   for(;;)
   {
+	
     osDelay(10);
+	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_3,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,GPIO_PIN_RESET);	 
+	__HAL_TIM_SetCompare(&htim2,TIM_CHANNEL_3,20000);
 	Key_Read();
 	Key_Task();		
 	Main_Task();
