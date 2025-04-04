@@ -23,6 +23,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "usart.h"
+#include "bsp_uart.h"
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -58,6 +60,7 @@
 /* External variables --------------------------------------------------------*/
 extern DMA_HandleTypeDef hdma_usart1_rx;
 extern DMA_HandleTypeDef hdma_usart1_tx;
+extern UART_HandleTypeDef huart1;
 extern TIM_HandleTypeDef htim4;
 
 /* USER CODE BEGIN EV */
@@ -202,6 +205,49 @@ void TIM4_IRQHandler(void)
   /* USER CODE BEGIN TIM4_IRQn 1 */
 
   /* USER CODE END TIM4_IRQn 1 */
+}
+
+/**
+  * @brief This function handles USART1 global interrupt.
+  */
+void USART1_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART1_IRQn 0 */
+		uint32_t tmp_flag = 0;
+		uint32_t temp;
+		tmp_flag =__HAL_UART_GET_FLAG(&huart1,UART_FLAG_IDLE); //获取IDLE标志位
+		if((tmp_flag != RESET))//idle标志被置位
+		{ 
+			__HAL_UART_CLEAR_IDLEFLAG(&huart1);//清除标志位
+			//temp = huart1.Instance->SR;  //清除状态寄存器SR,读取SR寄存器可以实现清除SR寄存器的功能
+			//temp = huart1.Instance->DR; //读取数据寄存器中的数据
+			//这两句和上面那句等效
+			HAL_UART_DMAStop(&huart1); //
+			temp  =  __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);// 获取DMA中未传输的数据个数   
+			//temp  = hdma_usart1_rx.Instance->NDTR;//读取NDTR寄存器 获取DMA中未传输的数据个数，
+			//这句和上面那句等效
+			rx_len =  BUFFER_SIZE - temp; //总计数减去未传输的数据个数，得到已经接收的数据个数
+			recv_end_flag = 1;	// 接受完成标志位置1	
+		 }
+
+		if(recv_end_flag == 1 && rx_len == DATA_REAL_LENGTH)  //接收完成标志
+		{
+			Data_Resolve(&Uart_Flag);
+			rx_len = 0;//清除计数
+			recv_end_flag = 0;//清除接收结束标志位
+	//			for(uint8_t i=0;i<rx_len;i++)
+	//				{
+	//					rx_buffer[i]=0;//清接收缓存
+	//				}
+				memset(rx_buffer,0,rx_len);
+		}
+		
+		HAL_UART_Receive_DMA(&huart1,rx_buffer,BUFFER_SIZE);//重新打开DMA接收			 
+  /* USER CODE END USART1_IRQn 0 */
+  HAL_UART_IRQHandler(&huart1);
+  /* USER CODE BEGIN USART1_IRQn 1 */
+
+  /* USER CODE END USART1_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

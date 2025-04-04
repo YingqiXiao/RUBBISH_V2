@@ -744,16 +744,6 @@
               <FilePath>..\BSP\syn6288.h</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\BSP\bsp_uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_uart.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\BSP\bsp_uart.h</FilePath>
-            </File>
-            <File>
               <FileName>bsp_motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\BSP\bsp_motor.c</FilePath>
@@ -827,6 +817,16 @@
               <FileName>bsp_task.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\BSP\bsp_task.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\bsp_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_uart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\BSP\bsp_uart.h</FilePath>
             </File>
           </Files>
         </Group>

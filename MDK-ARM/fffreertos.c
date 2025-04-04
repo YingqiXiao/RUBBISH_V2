@@ -35,7 +35,6 @@
 #include "key.h"
 #include "bsp_task.h"
 #include "syn6288.h"
-#include "eeprom.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -120,11 +119,11 @@ void MX_FREERTOS_Init(void) {
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of LoopTask */
-  osThreadDef(LoopTask, Loop_Task, osPriorityNormal, 0, 128);
+  osThreadDef(LoopTask, Loop_Task, osPriorityHigh, 0, 128);
   LoopTaskHandle = osThreadCreate(osThread(LoopTask), NULL);
 
   /* definition and creation of SensorTask */
-  osThreadDef(SensorTask, Sensor_Task, osPriorityNormal, 0, 128);
+  osThreadDef(SensorTask, Sensor_Task, osPriorityAboveNormal, 0, 128);
   SensorTaskHandle = osThreadCreate(osThread(SensorTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -146,23 +145,7 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(10);
-	eeprom_write(1,cast[0].Cast2_flag & 0xff);  	  
-	eeprom_write(0,cast[0].Cast2_flag >> 8);
-	eeprom_write(2,motor[0].motor_speed >> 8);
-	eeprom_write(3,motor[0].motor_speed & 0xff);
-	eeprom_write(4,motor[1].motor_speed >> 8);
-	eeprom_write(5,motor[1].motor_speed & 0xff);
-	eeprom_write(6,motor[2].motor_speed >> 8);
-	eeprom_write(7,motor[2].motor_speed & 0xff);
-
-//	eeprom_write(1,1);
-//	eeprom_write(2,500 >> 8);
-//	eeprom_write(3,500 & 0xff);
-//	eeprom_write(4,500 >> 8);
-//	eeprom_write(5,500 & 0xff);
-//	eeprom_write(6,500 >> 8);
-//	eeprom_write(7,500 & 0xff);
+	osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -180,11 +163,11 @@ void Loop_Task(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(10);
 	Key_Read();
 	Key_Task();		
 	Main_Task();
 	Display_Task();
+    osDelay(10);
   }
   /* USER CODE END Loop_Task */
 }
@@ -202,10 +185,9 @@ void Sensor_Task(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(10);
 	Sensor_Read();
 	Sensor_Judge();	
-
+    osDelay(5);
   }
   /* USER CODE END Sensor_Task */
 }

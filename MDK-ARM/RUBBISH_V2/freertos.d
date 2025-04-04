@@ -53,3 +53,5 @@ rubbish_v2\freertos.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdbool.h
 rubbish_v2\freertos.o: ../BSP/bsp_motor.h
 rubbish_v2\freertos.o: ../BSP/key.h
 rubbish_v2\freertos.o: ../BSP/bsp_task.h
+rubbish_v2\freertos.o: ../BSP/syn6288.h
+rubbish_v2\freertos.o: ../BSP/eeprom.h

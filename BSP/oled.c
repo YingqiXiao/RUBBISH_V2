@@ -412,17 +412,6 @@ void OLED_DrawBMP(uint8_t x0, uint8_t y0,uint8_t x1, uint8_t y1,uint8_t BMP[])
 //初始化SSD1306					    
 void OLED_Init(void)
 { 	
-		GPIO_InitTypeDef GPIO_InitStruct = {0};
-	 
-		__HAL_RCC_GPIOB_CLK_ENABLE();
-	 
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10|GPIO_PIN_11, GPIO_PIN_RESET);//设置SCL，SDA
-		/*Configure GPIO pins : PB10 PB11 */
-		GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11;
-		GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-		GPIO_InitStruct.Pull = GPIO_PULLUP;
-		GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-		HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 		HAL_Delay(10);//必须延时10ms以上
 		OLED_WR_Byte(0xAE,OLED_CMD);//--display off
 		OLED_WR_Byte(0x02,OLED_CMD);//---set low column address

@@ -30,3 +30,5 @@ rubbish_v2\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim
 rubbish_v2\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 rubbish_v2\stm32f1xx_it.o: ../Core/Inc/stm32f1xx_it.h
 rubbish_v2\stm32f1xx_it.o: ../Core/Inc/usart.h
+rubbish_v2\stm32f1xx_it.o: ../BSP/bsp_uart.h
+rubbish_v2\stm32f1xx_it.o: D:\Keil\ARM\ARMCC\Bin\..\include\string.h

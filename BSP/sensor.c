@@ -22,14 +22,14 @@ void Sensor_Read(void)
 
 void Sensor_Judge(void)
 {
-	for(uint8_t i = 4;i == 5;i++)
+	for(uint8_t i = 4;i <= 5;i++)
 	  {
-		  if(sensor[i].sensor_state == 1 && sensor[i].sensor_flag == 0)
+		  if(sensor[i].sensor_state == 0 && sensor[i].sensor_flag == 0)
 		  {
 			  sensor[i].sensor_flag = 1;
 		  }
 		  
-		  if(sensor[i].sensor_state == 0 && sensor[i].sensor_flag == 1)
+		  if(sensor[i].sensor_state == 1 && sensor[i].sensor_flag == 1)
 		  {
 			  sensor[i].sensor_flag = 2;
 		  }
@@ -38,9 +38,9 @@ void Sensor_Judge(void)
 
 	if(sensor[FIRST_SENSOR].sensor_flag == 0 && sensor[SECOND_SENSOR].sensor_flag == 0)
 	{
-		Motor_Control(MOTOR1,600,MOTOR_STOP);
-		Motor_Control(MOTOR2,400,MOTOR_STOP);
-		Motor_Control(MOTOR3,500,MOTOR_STOP);
+		Motor_Control(MOTOR1,600,MOTOR_RUN);
+		Motor_Control(MOTOR2,400,MOTOR_RUN);
+		Motor_Control(MOTOR3,500,MOTOR_RUN);
 	}
 	  
 	if(sensor[FIRST_SENSOR].sensor_flag == 2)
@@ -68,23 +68,28 @@ void Sensor_Judge(void)
 
 	for(uint8_t i = 0;i <= 3;i++)
 	{
-		if(sensor[i].sensor_state != 0)
+		if(sensor[i].sensor_state == 0)
 		{
 			sensor_time++;
-			if(sensor_time>=500)
+			if(sensor_time == 1000)
+			{
+				//选择背景音乐2。(0：无背景音乐  1-15：背景音乐可选)
+				//m[0~16]:0背景音乐为静音，16背景音乐音量最大
+				//v[0~16]:0朗读音量为静音，16朗读音量最大
+				//t[0~5]:0朗读语速最慢，5朗读语速最快
+				//其他不常用功能请参考数据手册	
+				SYN_FrameInfo(0, "[v1][m1][t5]满载警报");						
+			}
+			
+			if(sensor_time == 1100)
 			{
 				tx_buffer[0] = 0x08;
 				tx_buffer[1] = 0x0A;
 				tx_buffer[2] = 0x09;
 				DMA_Usart_Send(tx_buffer, tx_len);
 				sensor_time = 0;
-				//选择背景音乐2。(0：无背景音乐  1-15：背景音乐可选)
-				//m[0~16]:0背景音乐为静音，16背景音乐音量最大
-				//v[0~16]:0朗读音量为静音，16朗读音量最大
-				//t[0~5]:0朗读语速最慢，5朗读语速最快
-				//其他不常用功能请参考数据手册
-				SYN_FrameInfo(0, "[v7][m1][t5]满载警报");				
 			}
+			
 		}
 	}
 }

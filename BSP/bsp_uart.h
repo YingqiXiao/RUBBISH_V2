@@ -1,7 +1,8 @@
-#ifndef _BSP_UART_H_
-#define _BSP_UART_H_
+#ifndef _BSP_UART_H
+#define _BSP_UART_H
 
 #include "main.h"
+
 
 typedef __packed struct
 {	

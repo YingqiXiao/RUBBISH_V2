@@ -8,6 +8,14 @@
 #define KITCHEN 3
 #define HARM 4
 
+typedef struct{
+	
+ unsigned int Cast2_flag;
+	
+}cast_t;
+
+extern cast_t cast[];
+
 void Key_Task(void);
 void Main_Task(void);
 void Init_Task(void);

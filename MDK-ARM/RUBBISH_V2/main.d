@@ -50,3 +50,5 @@ rubbish_v2\main.o: ../BSP/syn6288.h
 rubbish_v2\main.o: ../BSP/oled.h
 rubbish_v2\main.o: ../BSP/bsp_task.h
 rubbish_v2\main.o: ../BSP/eeprom.h
+rubbish_v2\main.o: ../BSP/bsp_uart.h
+rubbish_v2\main.o: D:\Keil\ARM\ARMCC\Bin\..\include\string.h

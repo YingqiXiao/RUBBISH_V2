@@ -12,7 +12,7 @@
 
 typedef struct{
 
-uint16_t motor_speed;
+unsigned int motor_speed;
 	
 }motor_t;
 

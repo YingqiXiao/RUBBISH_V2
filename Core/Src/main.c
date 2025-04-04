@@ -30,6 +30,9 @@
 #include "oled.h"
 #include "bsp_task.h"
 #include "eeprom.h"
+#include "usart.h"
+#include "bsp_uart.h"
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -99,6 +102,7 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
+  
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_2);
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_3);
@@ -106,7 +110,7 @@ int main(void)
   HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_2);
   OLED_Init();
   OLED_Clear();
-  Init_Task();  
+  Init_Task();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
