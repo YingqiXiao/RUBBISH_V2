@@ -77,8 +77,6 @@ void Error_Handler(void);
 #define MOTOR2_IN2_GPIO_Port GPIOB
 #define MOTOR3_IN1_Pin GPIO_PIN_1
 #define MOTOR3_IN1_GPIO_Port GPIOB
-#define MOTOR3_IN2_Pin GPIO_PIN_2
-#define MOTOR3_IN2_GPIO_Port GPIOB
 #define WARN_TX_Pin GPIO_PIN_10
 #define WARN_TX_GPIO_Port GPIOB
 #define WARN_RX_Pin GPIO_PIN_11
@@ -115,6 +113,8 @@ void Error_Handler(void);
 #define EEPROM_SDA_GPIO_Port GPIOB
 #define KEY4_Pin GPIO_PIN_8
 #define KEY4_GPIO_Port GPIOB
+#define MOTOR3_IN2_Pin GPIO_PIN_9
+#define MOTOR3_IN2_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

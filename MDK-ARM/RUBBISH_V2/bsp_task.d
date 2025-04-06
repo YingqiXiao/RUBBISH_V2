@@ -41,3 +41,4 @@ rubbish_v2\bsp_task.o: ..\BSP\oled.h
 rubbish_v2\bsp_task.o: ../Core/Inc/gpio.h
 rubbish_v2\bsp_task.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 rubbish_v2\bsp_task.o: ../Core/Inc/usart.h
+rubbish_v2\bsp_task.o: D:\Keil\ARM\ARMCC\Bin\..\include\string.h

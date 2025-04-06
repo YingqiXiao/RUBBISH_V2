@@ -229,20 +229,7 @@ void USART1_IRQHandler(void)
 			rx_len =  BUFFER_SIZE - temp; //总计数减去未传输的数据个数，得到已经接收的数据个数
 			recv_end_flag = 1;	// 接受完成标志位置1	
 		 }
-
-		if(recv_end_flag == 1 && rx_len == DATA_REAL_LENGTH)  //接收完成标志
-		{
-			Data_Resolve(&Uart_Flag);
-			rx_len = 0;//清除计数
-			recv_end_flag = 0;//清除接收结束标志位
-	//			for(uint8_t i=0;i<rx_len;i++)
-	//				{
-	//					rx_buffer[i]=0;//清接收缓存
-	//				}
-				memset(rx_buffer,0,rx_len);
-		}
 		
-		HAL_UART_Receive_DMA(&huart1,rx_buffer,BUFFER_SIZE);//重新打开DMA接收			 
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */

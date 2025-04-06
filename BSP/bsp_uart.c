@@ -4,13 +4,11 @@
 uint8_t err = 0;
 Uart_Flag_t Uart_Flag;
 
-/*
-*********************************************************************************************************
-* 函 数 名: DMA_Usart_Send
-* 功能说明: 串口发送功能函数
-* 形  参: buf，len
-* 返 回 值: 无
-*********************************************************************************************************
+/**
+*   @brief  DMA串口发送函数
+*   @param  buf串口发送数组，len串口发送内容长度
+*   @return none
+*   @author Aoyer
 */
 void DMA_Usart_Send(uint8_t *buf,uint8_t len)//串口发送封装
 {
@@ -21,21 +19,23 @@ void DMA_Usart_Send(uint8_t *buf,uint8_t len)//串口发送封装
 
 }
 
-/*
-*********************************************************************************************************
-* 函 数 名: DMA_Usart1_Read
-* 功能说明: 串口接收功能函数
-* 形  参: Data,len
-* 返 回 值: 无
-*********************************************************************************************************
+/**
+*   @brief  DMA串口接收函数
+*   @param  Data串口接收数组，len串口接收内容长度
+*   @return none
+*   @author Aoyer
 */
-void DMA_Usart1_Read(uint8_t *Data,uint8_t len)//串口接收封装
+void DMA_Usart_Read(uint8_t *Data,uint8_t len)//串口接收封装
 {
 	HAL_UART_Receive_DMA(&huart1,Data,len);//重新打开DMA接收
 }
 
-
-
+/**
+*   @brief  上下位机通信解算任务
+*   @param  ptr串口接收数组
+*   @return none
+*   @author Aoyer
+*/
 void Data_Resolve(Uart_Flag_t *ptr)
 {
 

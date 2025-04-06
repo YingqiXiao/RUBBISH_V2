@@ -7,17 +7,22 @@
 #define OTHER 2
 #define KITCHEN 3
 #define HARM 4
+#define NORECEIVE_WAIT_TIME 500 //单位：10ms
 
 typedef struct{
 	
- unsigned int Cast2_flag;
+ unsigned int Noreceive_Number;
 	
-}cast_t;
+}noreceive_cast_t;
 
-extern cast_t cast[];
+extern noreceive_cast_t Noreceive_Cast[];
 
 void Key_Task(void);
-void Main_Task(void);
+void Control_Task(void);//多加一个l是为了与FREERTOS中的任务名避免重复
 void Init_Task(void);
 void Display_Task(void);
+void Sensor_Task(void);
+void eeprom_Task(void);
+void uart_Task(void);
+
 #endif

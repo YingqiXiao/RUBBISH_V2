@@ -4,9 +4,9 @@
 
 motor_t motor[3] = {0};
 
-void Motor_Control(uint8_t Motor_Flag,uint16_t Motor_PWM,bool Motor_State)
+void Motor_Control(uint8_t Motor_Number,uint16_t Motor_PWM,bool Motor_State)
 {
-	switch(Motor_Flag)
+	switch(Motor_Number)
 	{
 		case MOTOR1:
 		{
@@ -47,14 +47,14 @@ void Motor_Control(uint8_t Motor_Flag,uint16_t Motor_PWM,bool Motor_State)
 			if(Motor_State == MOTOR_RUN)
 			{
 				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
-				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_2,GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_9,GPIO_PIN_RESET);
 				__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,Motor_PWM);
 			}
 			
 			else if(Motor_State == MOTOR_STOP)
 			{
 				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
-				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_2,GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_9,GPIO_PIN_SET);
 			}
 		}
 		break;		

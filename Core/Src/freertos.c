@@ -58,18 +58,24 @@
 /* USER CODE BEGIN Variables */
 
 /* USER CODE END Variables */
-osThreadId defaultTaskHandle;
-osThreadId LoopTaskHandle;
-osThreadId SensorTaskHandle;
+osThreadId ConTaskHandle;
+osThreadId DisTaskHandle;
+osThreadId KTaskHandle;
+osThreadId eepTaskHandle;
+osThreadId SenTaskHandle;
+osThreadId UartTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 
 /* USER CODE END FunctionPrototypes */
 
-void StartDefaultTask(void const * argument);
-void Loop_Task(void const * argument);
-void Sensor_Task(void const * argument);
+void Con_Task(void const * argument);
+void Dis_Task(void const * argument);
+void K_Task(void const * argument);
+void eep_Task(void const * argument);
+void Sen_Task(void const * argument);
+void Uart_Task(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -116,17 +122,29 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  /* definition and creation of ConTask */
+  osThreadDef(ConTask, Con_Task, osPriorityHigh, 0, 128);
+  ConTaskHandle = osThreadCreate(osThread(ConTask), NULL);
 
-  /* definition and creation of LoopTask */
-  osThreadDef(LoopTask, Loop_Task, osPriorityNormal, 0, 128);
-  LoopTaskHandle = osThreadCreate(osThread(LoopTask), NULL);
+  /* definition and creation of DisTask */
+  osThreadDef(DisTask, Dis_Task, osPriorityAboveNormal, 0, 128);
+  DisTaskHandle = osThreadCreate(osThread(DisTask), NULL);
 
-  /* definition and creation of SensorTask */
-  osThreadDef(SensorTask, Sensor_Task, osPriorityNormal, 0, 128);
-  SensorTaskHandle = osThreadCreate(osThread(SensorTask), NULL);
+  /* definition and creation of KTask */
+  osThreadDef(KTask, K_Task, osPriorityNormal, 0, 128);
+  KTaskHandle = osThreadCreate(osThread(KTask), NULL);
+
+  /* definition and creation of eepTask */
+  osThreadDef(eepTask, eep_Task, osPriorityAboveNormal, 0, 128);
+  eepTaskHandle = osThreadCreate(osThread(eepTask), NULL);
+
+  /* definition and creation of SenTask */
+  osThreadDef(SenTask, Sen_Task, osPriorityNormal, 0, 128);
+  SenTaskHandle = osThreadCreate(osThread(SenTask), NULL);
+
+  /* definition and creation of UartTask */
+  osThreadDef(UartTask, Uart_Task, osPriorityNormal, 0, 128);
+  UartTaskHandle = osThreadCreate(osThread(UartTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -134,86 +152,118 @@ void MX_FREERTOS_Init(void) {
 
 }
 
-/* USER CODE BEGIN Header_StartDefaultTask */
+/* USER CODE BEGIN Header_Con_Task */
 /**
-  * @brief  Function implementing the defaultTask thread.
+  * @brief  Function implementing the ConTask thread.
   * @param  argument: Not used
   * @retval None
   */
-/* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void const * argument)
+/* USER CODE END Header_Con_Task */
+void Con_Task(void const * argument)
 {
-  /* USER CODE BEGIN StartDefaultTask */
+  /* USER CODE BEGIN Con_Task */
   /* Infinite loop */
   for(;;)
   {
-    osDelay(10);
-	eeprom_write(1,cast[0].Cast2_flag & 0xff);  	  
-	eeprom_write(0,cast[0].Cast2_flag >> 8);
-	eeprom_write(2,motor[0].motor_speed >> 8);
-	eeprom_write(3,motor[0].motor_speed & 0xff);
-	eeprom_write(4,motor[1].motor_speed >> 8);
-	eeprom_write(5,motor[1].motor_speed & 0xff);
-	eeprom_write(6,motor[2].motor_speed >> 8);
-	eeprom_write(7,motor[2].motor_speed & 0xff);
-
-//	eeprom_write(1,1 & 0xff);  	  
-//	eeprom_write(0,1 >> 8);
-//	eeprom_write(2,1000 >> 8);
-//	eeprom_write(3,1000 & 0xff);
-//	eeprom_write(4,500 >> 8);
-//	eeprom_write(5,500 & 0xff);
-//	eeprom_write(6,500 >> 8);
-//	eeprom_write(7,500 & 0xff);
+	Control_Task();
+    vTaskDelay(10);
   }
-  /* USER CODE END StartDefaultTask */
+  /* USER CODE END Con_Task */
 }
 
-/* USER CODE BEGIN Header_Loop_Task */
+/* USER CODE BEGIN Header_Dis_Task */
 /**
-* @brief Function implementing the LoopTask thread.
+* @brief Function implementing the DisTask thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_Loop_Task */
-void Loop_Task(void const * argument)
+/* USER CODE END Header_Dis_Task */
+void Dis_Task(void const * argument)
 {
-  /* USER CODE BEGIN Loop_Task */
+  /* USER CODE BEGIN Dis_Task */
   /* Infinite loop */
   for(;;)
   {
-	
-    osDelay(10);
-	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_3,GPIO_PIN_SET);
-	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,GPIO_PIN_RESET);	 
-	__HAL_TIM_SetCompare(&htim2,TIM_CHANNEL_3,20000);
-	Key_Read();
-	Key_Task();		
-	Main_Task();
-	Display_Task();
+	  Display_Task();
+	  vTaskDelay(10);
   }
-  /* USER CODE END Loop_Task */
+  /* USER CODE END Dis_Task */
 }
 
-/* USER CODE BEGIN Header_Sensor_Task */
+/* USER CODE BEGIN Header_K_Task */
 /**
-* @brief Function implementing the SensorTask thread.
+* @brief Function implementing the KTask thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_Sensor_Task */
-void Sensor_Task(void const * argument)
+/* USER CODE END Header_K_Task */
+void K_Task(void const * argument)
 {
-  /* USER CODE BEGIN Sensor_Task */
+  /* USER CODE BEGIN K_Task */
   /* Infinite loop */
   for(;;)
   {
+	 Key_Task();
     osDelay(10);
-	Sensor_Read();
-	Sensor_Judge();	
-
   }
-  /* USER CODE END Sensor_Task */
+  /* USER CODE END K_Task */
+}
+
+/* USER CODE BEGIN Header_eep_Task */
+/**
+* @brief Function implementing the eepTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_eep_Task */
+void eep_Task(void const * argument)
+{
+  /* USER CODE BEGIN eep_Task */
+  /* Infinite loop */
+  for(;;)
+  {
+	eeprom_Task();
+    vTaskDelay(10);
+  }
+  /* USER CODE END eep_Task */
+}
+
+/* USER CODE BEGIN Header_Sen_Task */
+/**
+* @brief Function implementing the SenTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Sen_Task */
+void Sen_Task(void const * argument)
+{
+  /* USER CODE BEGIN Sen_Task */
+  /* Infinite loop */
+  for(;;)
+  {
+	Sensor_Task();
+    osDelay(10);
+  }
+  /* USER CODE END Sen_Task */
+}
+
+/* USER CODE BEGIN Header_Uart_Task */
+/**
+* @brief Function implementing the UartTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Uart_Task */
+void Uart_Task(void const * argument)
+{
+  /* USER CODE BEGIN Uart_Task */
+  /* Infinite loop */
+  for(;;)
+  {
+	uart_Task();
+    osDelay(10);
+  }
+  /* USER CODE END Uart_Task */
 }
 
 /* Private application code --------------------------------------------------*/

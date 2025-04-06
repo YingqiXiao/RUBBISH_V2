@@ -10,11 +10,13 @@
 #define HARM_SENSOR 3
 #define FIRST_SENSOR 4
 #define SECOND_SENSOR 5
+#define WARN_TIME 1000 //满载警报传感器被遮挡时间，单位：10ms
 
+/*传感器判断结构体*/
 typedef struct{
 
-bool sensor_state;
-uint8_t sensor_flag;
+bool Sensor_State;//传感器状态
+uint8_t Sensor_flag;//传感器标志位
 	
 }sensor_t;
 extern sensor_t sensor[];
