@@ -77,26 +77,26 @@ static void delay1(unsigned int n)
 void I2CStart(void)
 {
     SDA_Output(1);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
     SCL_Output(1);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
     SDA_Output(0);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
     SCL_Output(0);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
 }
 
 //
 void I2CStop(void)
 {
     SCL_Output(0);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
     SDA_Output(0);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
     SCL_Output(1);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
     SDA_Output(1);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
 
 }
 
@@ -105,13 +105,13 @@ unsigned char I2CWaitAck(void)
 {
     unsigned short cErrTime = 5;
     SDA_Input_Mode();
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
     SCL_Output(1);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
     while(SDA_Input())
     {
         cErrTime--;
-        delay1(DELAY_TIME);
+        HAL_Delay(1);
         if (0 == cErrTime)
         {
             SDA_Output_Mode();
@@ -121,7 +121,7 @@ unsigned char I2CWaitAck(void)
     }
     SCL_Output(0);
     SDA_Output_Mode();
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
     return SUCCESS;
 }
 
@@ -129,12 +129,12 @@ unsigned char I2CWaitAck(void)
 void I2CSendAck(void)
 {
     SDA_Output(0);
-    delay1(DELAY_TIME);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
+    HAL_Delay(1);
     SCL_Output(1);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
     SCL_Output(0);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
 
 }
 
@@ -142,12 +142,12 @@ void I2CSendAck(void)
 void I2CSendNotAck(void)
 {
     SDA_Output(1);
-    delay1(DELAY_TIME);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
+    HAL_Delay(1);
     SCL_Output(1);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
     SCL_Output(0);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
 
 }
 
@@ -158,16 +158,16 @@ void I2CSendByte(unsigned char cSendByte)
     while (i--)
     {
         SCL_Output(0);
-        delay1(DELAY_TIME);
+        HAL_Delay(1);
         SDA_Output(cSendByte & 0x80);
-        delay1(DELAY_TIME);
+        HAL_Delay(1);
         cSendByte += cSendByte;
-        delay1(DELAY_TIME);
+        HAL_Delay(1);
         SCL_Output(1);
-        delay1(DELAY_TIME);
+        HAL_Delay(1);
     }
     SCL_Output(0);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
 }
 
 //
@@ -180,14 +180,14 @@ unsigned char I2CReceiveByte(void)
     {
         cR_Byte += cR_Byte;
         SCL_Output(0);
-        delay1(DELAY_TIME);
-        delay1(DELAY_TIME);
+        HAL_Delay(1);
+        HAL_Delay(1);
         SCL_Output(1);
-        delay1(DELAY_TIME);
+        HAL_Delay(1);
         cR_Byte |=  SDA_Input();
     }
     SCL_Output(0);
-    delay1(DELAY_TIME);
+    HAL_Delay(1);
     SDA_Output_Mode();
     return cR_Byte;
 }

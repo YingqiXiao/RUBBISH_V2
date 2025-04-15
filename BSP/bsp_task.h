@@ -8,6 +8,8 @@
 #define KITCHEN 3
 #define HARM 4
 #define NORECEIVE_WAIT_TIME 500 //µ¥Î»£º10ms
+#define LOCK 0
+#define UNLOCK 1
 
 typedef struct{
 	

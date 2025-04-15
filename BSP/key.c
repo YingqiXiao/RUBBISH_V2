@@ -18,7 +18,6 @@ void Key_Read(void)
 				if(Key[i].Key_State == 0)
 				{
 					Key[i].Judge_State = 1;
-					Key[i].Judge_State = 0;
 				}
 			}
 			break;
@@ -40,18 +39,23 @@ void Key_Read(void)
 				if(Key[i].Key_State == 1)
 				{
 					Key[i].Judge_State = 0;
-					Key[i].Single_flag = 1;
 					
-					if(Key[i].Judge_State < LONG_PRESS_TIME)
-						Key[i].Single_flag = 1;							
+					if(Key[i].Key_time >= LONG_PRESS_TIME)
+						Key[i].Long_flag = 1;
+					
+					if(Key[i].Key_time < LONG_PRESS_TIME)
+						Key[i].Single_flag = 1;
+					
+					
+
+					Key[i].Key_time = 0;
+						
 				}
 				
 				else 
 				{
-					Key[i].Judge_State++;
-					if(Key[i].Judge_State > LONG_PRESS_TIME)
-						Key[i].Long_flag = 1;
-										
+					Key[i].Key_time++;
+						
 				}
 			}
 			break;

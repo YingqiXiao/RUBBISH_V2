@@ -204,7 +204,7 @@ void K_Task(void const * argument)
   for(;;)
   {
 	 Key_Task();
-    osDelay(10);
+     osDelay(10);
   }
   /* USER CODE END K_Task */
 }

@@ -17,6 +17,7 @@ uint32_t Receive_time = 0;//上位机正常识别垃圾
 uint8_t Motor_Number = 0;//电机序号
 uint32_t Noreceive_time = 0;//上位机未识别到垃圾但传感器检测到了
 noreceive_cast_t Noreceive_Cast[1] = {0};//如果上位机未识别到垃圾但传感器检测到了往垃圾桶投的序号
+bool Lock_flag = 0;
 
 /**
 *   @brief  如果第二个传感器判断有垃圾通过但上位机未检测执行任务
@@ -266,39 +267,59 @@ void Cast_Task(uint8_t Cast_Numebr)
 
 void Display_Task()
 {
-	char text[30];
-	sprintf(text,"M1_SPEED:%d",motor[0].motor_speed);
-	OLED_ShowString(0,0,(uint8_t *)text,sizeof(text));
-	sprintf(text,"M2_SPEED:%d",motor[1].motor_speed);
-	OLED_ShowString(0,1,(uint8_t *)text,sizeof(text));	
-	sprintf(text,"M3_SPEED:%d",motor[2].motor_speed);
-	OLED_ShowString(0,2,(uint8_t *)text,sizeof(text));
-	switch(Noreceive_Cast[0].Noreceive_Number)
+	if(Key[2].Long_flag == 0)
 	{
-		case RECYCLE:
+		char text[30];
+		sprintf(text,"M1_SPEED:%d",motor[0].motor_speed);
+		OLED_ShowString(0,0,(uint8_t *)text,sizeof(text));
+		sprintf(text,"M2_SPEED:%d",motor[1].motor_speed);
+		OLED_ShowString(0,1,(uint8_t *)text,sizeof(text));	
+		sprintf(text,"M3_SPEED:%d",motor[2].motor_speed);
+		OLED_ShowString(0,2,(uint8_t *)text,sizeof(text));
+		switch(Noreceive_Cast[0].Noreceive_Number)
 		{
-			sprintf(text,"CAST:RECYCLE");
-			OLED_ShowString(0,3,(uint8_t *)text,sizeof(text));	
+			case RECYCLE:
+			{
+				sprintf(text,"CAST:RECYCLE");
+				OLED_ShowString(0,3,(uint8_t *)text,sizeof(text));	
+			}
+			break;
+			case OTHER:
+			{
+				sprintf(text,"CAST:OTHER");
+				OLED_ShowString(0,3,(uint8_t *)text,sizeof(text));	
+			}
+			break;	
+			case KITCHEN:
+			{
+				sprintf(text,"CAST:KITCHEN");
+				OLED_ShowString(0,3,(uint8_t *)text,sizeof(text));	
+			}
+			break;
+			case HARM:
+			{
+				sprintf(text,"CAST:HARM");
+				OLED_ShowString(0,3,(uint8_t *)text,sizeof(text));	
+			}
+			break;		
 		}
-		break;
-		case OTHER:
+		
+		if(Key[0].Judge_State == 2 || Key[1].Judge_State == 2 || Key[3].Judge_State == 2)
 		{
-			sprintf(text,"CAST:OTHER");
-			OLED_ShowString(0,3,(uint8_t *)text,sizeof(text));	
+			Lock_flag = UNLOCK;
+			
 		}
-		break;	
-		case KITCHEN:
+		
+		if(Lock_flag == 1)
 		{
-			sprintf(text,"CAST:KITCHEN");
-			OLED_ShowString(0,3,(uint8_t *)text,sizeof(text));	
+			sprintf(text,"UNLOCK");
+			OLED_ShowString(0,4,(uint8_t *)text,sizeof(text));				
 		}
-		break;
-		case HARM:
+		else
 		{
-			sprintf(text,"CAST:HARM");
-			OLED_ShowString(0,3,(uint8_t *)text,sizeof(text));	
+			sprintf(text,"LOCK");
+			OLED_ShowString(0,4,(uint8_t *)text,sizeof(text));					
 		}
-		break;		
 	}
 	
 }
@@ -332,10 +353,10 @@ void Key_Task(void)
 			if(Key[0].Single_flag == 1)
 			{	
 				OLED_Clear();
-				motor[0].motor_speed += 100;
-				if(motor[0].motor_speed > 1000)
+				motor[0].motor_speed += 1000;
+				if(motor[0].motor_speed > 20000)
 				{
-					motor[0].motor_speed = 1000;
+					motor[0].motor_speed = 20000;
 				}
 			
 				Key[0].Single_flag = 0;
@@ -346,7 +367,7 @@ void Key_Task(void)
 				OLED_Clear();
 				if(motor[0].motor_speed != 0)
 				{					
-					motor[0].motor_speed -= 100;
+					motor[0].motor_speed -= 1000;
 				}
 	
 				Key[1].Single_flag = 0;
@@ -360,10 +381,10 @@ void Key_Task(void)
 			if(Key[0].Single_flag == 1)
 			{   
 				OLED_Clear();
-				motor[1].motor_speed += 100;
-				if(motor[1].motor_speed > 1000)
+				motor[1].motor_speed += 1000;
+				if(motor[1].motor_speed > 20000)
 				{
-					motor[1].motor_speed = 1000;
+					motor[1].motor_speed = 20000;
 				}
 
 				Key[0].Single_flag = 0;
@@ -374,7 +395,7 @@ void Key_Task(void)
 				OLED_Clear();
 				if(motor[1].motor_speed != 0)
 				{
-				motor[1].motor_speed -= 100;
+				motor[1].motor_speed -= 1000;
 				}
 
 				Key[1].Single_flag = 0;
@@ -388,10 +409,10 @@ void Key_Task(void)
 			if(Key[0].Single_flag == 1)
 			{
 				OLED_Clear();
-				motor[2].motor_speed += 100;
-				if(motor[2].motor_speed > 1000)
+				motor[2].motor_speed += 1000;
+				if(motor[2].motor_speed > 20000)
 				{
-					motor[2].motor_speed = 1000;
+					motor[2].motor_speed = 20000;
 				}
 
 				Key[0].Single_flag = 0;
@@ -402,7 +423,7 @@ void Key_Task(void)
 				OLED_Clear();
 				if(motor[2].motor_speed != 0)
 				{
-				motor[2].motor_speed -= 100;
+				motor[2].motor_speed -= 1000;
 				}
 
 				Key[1].Single_flag = 0;
@@ -503,14 +524,19 @@ void Sensor_Task(void)
 */
 void eeprom_Task(void)
 {
-	eeprom_write(1,Noreceive_Cast[0].Noreceive_Number & 0xff);  	  
-	eeprom_write(0,Noreceive_Cast[0].Noreceive_Number >> 8);
-	eeprom_write(2,motor[0].motor_speed >> 8);
-	eeprom_write(3,motor[0].motor_speed & 0xff);
-	eeprom_write(4,motor[1].motor_speed >> 8);
-	eeprom_write(5,motor[1].motor_speed & 0xff);
-	eeprom_write(6,motor[2].motor_speed >> 8);
-	eeprom_write(7,motor[2].motor_speed & 0xff);	
+	if(Key[2].Long_flag == 1)
+	{
+		eeprom_write(0,Noreceive_Cast[0].Noreceive_Number >> 8);
+		eeprom_write(1,Noreceive_Cast[0].Noreceive_Number & 0xff);
+		eeprom_write(2,motor[0].motor_speed >> 8);
+		eeprom_write(3,motor[0].motor_speed & 0xff);
+		eeprom_write(4,motor[1].motor_speed >> 8);
+		eeprom_write(5,motor[1].motor_speed & 0xff);
+		eeprom_write(6,motor[2].motor_speed >> 8);
+		eeprom_write(7,motor[2].motor_speed & 0xff);
+		Key[2].Long_flag = 0;
+		Lock_flag = LOCK;
+	}		
 }
 
 void uart_Task(void)
