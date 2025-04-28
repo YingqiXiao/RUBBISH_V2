@@ -12,8 +12,8 @@ void Motor_Control(uint8_t Motor_Number,uint16_t Motor_PWM,bool Motor_State)
 		{
 			if(Motor_State == MOTOR_RUN)
 			{
-				HAL_GPIO_WritePin(GPIOA,GPIO_PIN_3,GPIO_PIN_SET);
-				HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA,GPIO_PIN_3,GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,GPIO_PIN_SET);
 				__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,Motor_PWM);
 			}
 			

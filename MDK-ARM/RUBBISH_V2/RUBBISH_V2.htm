@@ -3,7 +3,7 @@
 <title>Static Call Graph - [RUBBISH_V2\RUBBISH_V2.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image RUBBISH_V2\RUBBISH_V2.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Tue Apr 15 15:47:33 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Tue Apr 29 00:27:12 2025
 <BR><P>
 <H3>Maximum Stack Usage =        344 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -554,7 +554,7 @@ Global Symbols
 </UL>
 <P><STRONG><a name="[147]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, indicate_semi.o(.text), UNUSED)
 
-<P><STRONG><a name="[69]"></a>Cast_Task</STRONG> (Thumb, 304 bytes, Stack size 40 bytes, bsp_task.o(i.Cast_Task))
+<P><STRONG><a name="[69]"></a>Cast_Task</STRONG> (Thumb, 316 bytes, Stack size 40 bytes, bsp_task.o(i.Cast_Task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = Cast_Task &rArr; DMA_Usart_Send &rArr; HAL_UART_Transmit_DMA &rArr; HAL_DMA_Start_IT &rArr; DMA_SetConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Servo_Control
@@ -575,7 +575,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> freertos.o(.constdata)
 </UL>
-<P><STRONG><a name="[6c]"></a>Control_Task</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, bsp_task.o(i.Control_Task))
+<P><STRONG><a name="[6c]"></a>Control_Task</STRONG> (Thumb, 74 bytes, Stack size 16 bytes, bsp_task.o(i.Control_Task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = Control_Task &rArr; Noreceive_Task &rArr; DMA_Usart_Send &rArr; HAL_UART_Transmit_DMA &rArr; HAL_DMA_Start_IT &rArr; DMA_SetConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Noreceive_Task
@@ -1157,7 +1157,7 @@ Global Symbols
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_IIC_Command
 </UL>
 
-<P><STRONG><a name="[c2]"></a>Init_Task</STRONG> (Thumb, 168 bytes, Stack size 16 bytes, bsp_task.o(i.Init_Task))
+<P><STRONG><a name="[c2]"></a>Init_Task</STRONG> (Thumb, 170 bytes, Stack size 16 bytes, bsp_task.o(i.Init_Task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = Init_Task &rArr; eeprom_read &rArr; I2CReceiveByte &rArr; SDA_Output_Mode &rArr; HAL_GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Receive_DMA
@@ -1278,7 +1278,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
 </UL>
-<P><STRONG><a name="[c4]"></a>Motor_Control</STRONG> (Thumb, 166 bytes, Stack size 24 bytes, bsp_motor.o(i.Motor_Control))
+<P><STRONG><a name="[c4]"></a>Motor_Control</STRONG> (Thumb, 164 bytes, Stack size 24 bytes, bsp_motor.o(i.Motor_Control))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Motor_Control
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
@@ -1294,7 +1294,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
 </UL>
-<P><STRONG><a name="[6e]"></a>Noreceive_Task</STRONG> (Thumb, 320 bytes, Stack size 40 bytes, bsp_task.o(i.Noreceive_Task))
+<P><STRONG><a name="[6e]"></a>Noreceive_Task</STRONG> (Thumb, 330 bytes, Stack size 40 bytes, bsp_task.o(i.Noreceive_Task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = Noreceive_Task &rArr; DMA_Usart_Send &rArr; HAL_UART_Transmit_DMA &rArr; HAL_DMA_Start_IT &rArr; DMA_SetConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Servo_Control
@@ -1423,7 +1423,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> freertos.o(.constdata)
 </UL>
-<P><STRONG><a name="[de]"></a>Sensor_Judge</STRONG> (Thumb, 284 bytes, Stack size 40 bytes, sensor.o(i.Sensor_Judge))
+<P><STRONG><a name="[de]"></a>Sensor_Judge</STRONG> (Thumb, 336 bytes, Stack size 40 bytes, sensor.o(i.Sensor_Judge))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = Sensor_Judge &rArr; SYN_FrameInfo &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_Control

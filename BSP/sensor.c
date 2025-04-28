@@ -8,6 +8,7 @@
 
 sensor_t sensor[6] = {0,0};
 uint32_t Warn_time = 0;//满载警报，传感器被遮挡时间
+uint32_t belt_time = 0;//二级传送带启动时一级传送带延时一段时间启动
 
 /**
 *   @brief  传感器状态读取任务
@@ -34,50 +35,70 @@ void Sensor_Read(void)
 */
 void Sensor_Judge(void)
 {
+	/*传感器判断*/
 	for(uint8_t i = 4;i <= 5;i++)
 	  {
-		  if(sensor[i].Sensor_State == 0 && sensor[i].Sensor_flag == 0)
+		  /*传送带被阻挡反馈高电平*/
+		  if(sensor[i].Sensor_State == 1)
 		  {
-			  sensor[i].Sensor_flag = 1;
+			  if(sensor[i].Sensor_flag == 0 || sensor[i].Sensor_flag == 4)//0为初始状态，4表示传送带处于延时时间
+			  {
+				  sensor[i].Sensor_flag = 1;//进入过渡状态
+				  belt_time = 0;//如果延时时间有垃圾落下此时把延时时间置零
+			  }
 		  }
-		  
-		  if(sensor[i].Sensor_State == 1 && sensor[i].Sensor_flag == 1)
-		  {
-			  sensor[i].Sensor_flag = 2;
-		  }
-		  
-	  }
 
+		  /*垃圾落下后传送带恢复低电平*/
+		  if(sensor[i].Sensor_State == 0 && sensor[i].Sensor_flag == 1)
+		  {
+			  sensor[i].Sensor_flag = 2;//此时要停下对应传送带
+		  }
+		  
+	  }	
+	
+	 /*如果两个传感器都属于初始状态则传送带正常运行*/
 	if(sensor[FIRST_SENSOR].Sensor_flag == 0 && sensor[SECOND_SENSOR].Sensor_flag == 0)
 	{
 		Motor_Control(MOTOR1,motor[0].motor_speed,MOTOR_RUN);
 		Motor_Control(MOTOR2,motor[1].motor_speed,MOTOR_RUN);
 		Motor_Control(MOTOR3,motor[2].motor_speed,MOTOR_RUN);
 	}
-	  
+
+	/*如果一级传感器处于要求制动状态则停下一级传送带*/
 	if(sensor[FIRST_SENSOR].Sensor_flag == 2)
 	{
 		Motor_Control(MOTOR1,0,MOTOR_STOP);
 		Motor_Control(MOTOR2,0,MOTOR_STOP);		
-		sensor[FIRST_SENSOR].Sensor_flag = 3;
+		sensor[FIRST_SENSOR].Sensor_flag = 3;//传感器进入等待状态，等待垃圾分类完成
 	}
-	
-	if(sensor[FIRST_SENSOR].Sensor_flag == 3)
-	{
-		if(sensor[SECOND_SENSOR].Sensor_flag == 2)
-		{
-			Motor_Control(MOTOR1,600,MOTOR_RUN);
-			Motor_Control(MOTOR2,400,MOTOR_RUN);
-			sensor[FIRST_SENSOR].Sensor_flag = 0;			
-		}
-	}
-	
+
+	/*如果一级传感器处于要求制动状态则停下一级传送*/
 	if(sensor[SECOND_SENSOR].Sensor_flag == 2)
 	{
 		Motor_Control(MOTOR3,0,MOTOR_STOP);
-		sensor[SECOND_SENSOR].Sensor_flag = 3;
+		Motor_Control(MOTOR1,0,MOTOR_STOP);
+		Motor_Control(MOTOR2,0,MOTOR_STOP);	
+		sensor[SECOND_SENSOR].Sensor_flag = 3;//传感器进入等待状态，等待垃圾分类完成
 	}
 
+	/*如果传感器进入延时状态，则二级传送带运行，一级传送带停止*/
+	if(sensor[FIRST_SENSOR].Sensor_flag == 4 && sensor[SECOND_SENSOR].Sensor_flag == 4)
+	{
+		Motor_Control(MOTOR3,motor[2].motor_speed,MOTOR_RUN);
+		Motor_Control(MOTOR2,0,MOTOR_STOP);
+		Motor_Control(MOTOR1,0,MOTOR_STOP);
+		belt_time++;//传送带延时时间计时
+	}
+
+	/*如果延时时间到了则将两个传感器都恢复为初始状态，延时时间归零*/
+	if(belt_time == BELT_DELAY_TIME)
+	{
+		sensor[FIRST_SENSOR].Sensor_flag = 0;
+		sensor[SECOND_SENSOR].Sensor_flag = 0;
+		belt_time = 0;
+	}
+
+	/*如果满载传感器检测到满载，则向上位机发送满载信号，同时语音播报*/
 	for(uint8_t i = 0;i <= 3;i++)
 	{
 		if(sensor[i].Sensor_State == 0)

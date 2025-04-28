@@ -33,21 +33,24 @@ void Noreceive_Task(uint8_t Cast_Numebr)
 		{
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 1)
 			{
-				Servo_Control(SERVO1,0,SERVO270);
-				Servo_Control(SERVO2,0,SERVO270);
+				Servo_Control(SERVO1,90,SERVO270);
+				Servo_Control(SERVO2,180,SERVO270);
 			}
 			
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 100)
-				Servo_Control(SERVO2,90,SERVO270);
+				Servo_Control(SERVO2,270,SERVO270);
 			
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 200)
-				Servo_Control(SERVO1,90,SERVO270);
+				Servo_Control(SERVO1,0,SERVO270);
 			
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 300)
 			{				
 				Uart_Flag.flag = 0;
-				sensor[FIRST_SENSOR].Sensor_flag = 0;
-				sensor[SECOND_SENSOR].Sensor_flag = 0;
+				
+				/*分类完成后传感器进入延时状态，二级传送带继续运行，一级传送带停止等待延时时间结束*/
+				sensor[FIRST_SENSOR].Sensor_flag = 4;
+				sensor[SECOND_SENSOR].Sensor_flag = 4;
+				
 				Noreceive_time = 0;
 				tx_buffer[0] = 0x08;
 				tx_buffer[1] = 0x02;
@@ -61,17 +64,23 @@ void Noreceive_Task(uint8_t Cast_Numebr)
 		{	
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 1)
 			{
-				Servo_Control(SERVO1,90,SERVO270);
+				Servo_Control(SERVO1,270,SERVO270);
 				Servo_Control(SERVO2,0,SERVO270);
 			}
-			if(Noreceive_time == NORECEIVE_WAIT_TIME + 100)
-				Servo_Control(SERVO2,90,SERVO270);
-
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 200)
+				Servo_Control(SERVO2,270,SERVO270);
+			
+			if(Noreceive_time == NORECEIVE_WAIT_TIME + 300)
+				Servo_Control(SERVO1,0,SERVO270);			
+
+			if(Noreceive_time == NORECEIVE_WAIT_TIME + 400)
 			{
 				Uart_Flag.flag = 0;
-				sensor[FIRST_SENSOR].Sensor_flag = 0;
-				sensor[SECOND_SENSOR].Sensor_flag = 0;
+				
+				/*分类完成后传感器进入延时状态，二级传送带继续运行，一级传送带停止等待延时时间结束*/
+				sensor[FIRST_SENSOR].Sensor_flag = 4;
+				sensor[SECOND_SENSOR].Sensor_flag = 4;
+				
 				Noreceive_time = 0;
 				tx_buffer[0] = 0x08;
 				tx_buffer[1] = 0x02;
@@ -85,20 +94,20 @@ void Noreceive_Task(uint8_t Cast_Numebr)
 		{
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 1)
 			{
-				Servo_Control(SERVO1,180,SERVO270);
+				Servo_Control(SERVO1,0,SERVO270);
 				Servo_Control(SERVO2,180,SERVO270);
 			}
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 100)
-				Servo_Control(SERVO2,90,SERVO270);
+				Servo_Control(SERVO2,270,SERVO270);
 
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 200)
-				Servo_Control(SERVO1,90,SERVO270);
-
-			if(Noreceive_time == NORECEIVE_WAIT_TIME + 300)
 			{
 				Uart_Flag.flag = 0;
-				sensor[FIRST_SENSOR].Sensor_flag = 0;
-				sensor[SECOND_SENSOR].Sensor_flag = 0;
+				
+				/*分类完成后传感器进入延时状态，二级传送带继续运行，一级传送带停止等待延时时间结束*/
+				sensor[FIRST_SENSOR].Sensor_flag = 4;
+				sensor[SECOND_SENSOR].Sensor_flag = 4;
+				
 				Noreceive_time = 0;
 				tx_buffer[0] = 0x08;
 				tx_buffer[1] = 0x02;
@@ -112,23 +121,25 @@ void Noreceive_Task(uint8_t Cast_Numebr)
 		{
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 1)
 			{
-				Servo_Control(SERVO1,270,SERVO270);
-				Servo_Control(SERVO2,270,SERVO270);
+				Servo_Control(SERVO1,180,SERVO270);
+				Servo_Control(SERVO2,90,SERVO270);
 			}
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 100)
-				Servo_Control(SERVO2,180,SERVO270);
+				Servo_Control(SERVO2,270,SERVO270);
 
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 200)
 			{
-				Servo_Control(SERVO2,90,SERVO270);
-				Servo_Control(SERVO2,90,SERVO270);
+				Servo_Control(SERVO1,0,SERVO270);
 			}
 			
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 300)
 			{
 				Uart_Flag.flag = 0;
-				sensor[FIRST_SENSOR].Sensor_flag = 0;
-				sensor[SECOND_SENSOR].Sensor_flag = 0;
+				
+				/*分类完成后传感器进入延时状态，二级传送带继续运行，一级传送带停止等待延时时间结束*/
+				sensor[FIRST_SENSOR].Sensor_flag = 4;
+				sensor[SECOND_SENSOR].Sensor_flag = 4;
+				
 				Noreceive_time = 0;
 				tx_buffer[0] = 0x08;
 				tx_buffer[1] = 0x02;
@@ -156,21 +167,24 @@ void Cast_Task(uint8_t Cast_Numebr)
 			
 			if(Receive_time == 1)
 			{
-				Servo_Control(SERVO1,0,SERVO270);
-				Servo_Control(SERVO2,0,SERVO270);
+				Servo_Control(SERVO1,90,SERVO270);
+				Servo_Control(SERVO2,180,SERVO270);
 			}
 			
 			if(Receive_time == 100)
-				Servo_Control(SERVO2,90,SERVO270);
+				Servo_Control(SERVO2,270,SERVO270);
 
 			if(Receive_time == 200)
-				Servo_Control(SERVO1,90,SERVO270);
+				Servo_Control(SERVO1,0,SERVO270);
 			
 			if(Receive_time == 300)
 			{				
 				Uart_Flag.flag = 0;
-				sensor[FIRST_SENSOR].Sensor_flag = 0;
-				sensor[SECOND_SENSOR].Sensor_flag = 0;
+				
+				/*分类完成后传感器进入延时状态，二级传送带继续运行，一级传送带停止等待延时时间结束*/
+				sensor[FIRST_SENSOR].Sensor_flag = 4;
+				sensor[SECOND_SENSOR].Sensor_flag = 4;
+				
 				Receive_time = 0;
 				tx_buffer[0] = 0x08;
 				tx_buffer[1] = 0x02;
@@ -179,23 +193,29 @@ void Cast_Task(uint8_t Cast_Numebr)
 			}
 			
 		}break;
-		
+
 		case OTHER:
 		{	
 			if(Receive_time == 1)
 			{
-				Servo_Control(SERVO1,90,SERVO270);
+				Servo_Control(SERVO1,270,SERVO270);
 				Servo_Control(SERVO2,0,SERVO270);
 			}
 			
-			if(Receive_time == 100)
-				Servo_Control(SERVO2,90,SERVO270);
-
 			if(Receive_time == 200)
+				Servo_Control(SERVO2,270,SERVO270);
+			
+			if(Receive_time == 300)
+				Servo_Control(SERVO1,0,SERVO270);
+
+			if(Receive_time == 400)
 			{
 				Uart_Flag.flag = 0;
-				sensor[FIRST_SENSOR].Sensor_flag = 0;
-				sensor[SECOND_SENSOR].Sensor_flag = 0;
+				
+				/*分类完成后传感器进入延时状态，二级传送带继续运行，一级传送带停止等待延时时间结束*/
+				sensor[FIRST_SENSOR].Sensor_flag = 4;
+				sensor[SECOND_SENSOR].Sensor_flag = 4;
+				
 				Receive_time = 0;
 				tx_buffer[0] = 0x08;
 				tx_buffer[1] = 0x02;
@@ -208,51 +228,58 @@ void Cast_Task(uint8_t Cast_Numebr)
 		{
 			if(Receive_time == 1)
 			{
-				Servo_Control(SERVO1,180,SERVO270);
+				Servo_Control(SERVO1,0,SERVO270);
 				Servo_Control(SERVO2,180,SERVO270);
+				
 			}
 			
 			if(Receive_time == 100)
-				Servo_Control(SERVO2,90,SERVO270);
+			{
+				Servo_Control(SERVO2,270,SERVO270);
+			}
 			
 			if(Receive_time == 200)
-				Servo_Control(SERVO1,90,SERVO270);
-			
-			if(Receive_time == 300)
-			{
+			{				
 				Uart_Flag.flag = 0;
-				sensor[FIRST_SENSOR].Sensor_flag = 0;
-				sensor[SECOND_SENSOR].Sensor_flag = 0;
+				
+				/*分类完成后传感器进入延时状态，二级传送带继续运行，一级传送带停止等待延时时间结束*/
+				sensor[FIRST_SENSOR].Sensor_flag = 4;
+				sensor[SECOND_SENSOR].Sensor_flag = 4;
+				
 				Receive_time = 0;
 				tx_buffer[0] = 0x08;
 				tx_buffer[1] = 0x02;
 				tx_buffer[2] = 0x09;
-				DMA_Usart_Send(tx_buffer, tx_len);		
-			}				
+				DMA_Usart_Send(tx_buffer, tx_len);
+				
+			}
+					
 		}break;
 
 		case KITCHEN:
 		{
 			if(Receive_time == 1)
 			{
-				Servo_Control(SERVO1,270,SERVO270);
-				Servo_Control(SERVO2,270,SERVO270);
+				Servo_Control(SERVO1,180,SERVO270);
+				Servo_Control(SERVO2,90,SERVO270);
 			}
 			
 			if(Receive_time == 100)
-				Servo_Control(SERVO2,180,SERVO270);
+				Servo_Control(SERVO2,270,SERVO270);
 			
 			if(Receive_time == 200)
 			{
-				Servo_Control(SERVO2,90,SERVO270);
-				Servo_Control(SERVO2,90,SERVO270);
+				Servo_Control(SERVO1,0,SERVO270);
 			}
 			
 			if(Receive_time == 300)
 			{
 				Uart_Flag.flag = 0;
-				sensor[FIRST_SENSOR].Sensor_flag = 0;
-				sensor[SECOND_SENSOR].Sensor_flag = 0;
+				
+				/*分类完成后传感器进入延时状态，二级传送带继续运行，一级传送带停止等待延时时间结束*/
+				sensor[FIRST_SENSOR].Sensor_flag = 4;
+				sensor[SECOND_SENSOR].Sensor_flag = 4;
+				
 				Receive_time = 0;
 				tx_buffer[0] = 0x08;
 				tx_buffer[1] = 0x02;
@@ -459,6 +486,9 @@ void Control_Task(void)
 	if(Uart_Flag.flag != 0)
 	{
 		Receive_time++;
+		/*收到上位机信息直接停止传送带*/
+		sensor[FIRST_SENSOR].Sensor_flag = 2;
+		sensor[SECOND_SENSOR].Sensor_flag = 2;
 		Cast_Task(Uart_Flag.flag);
 
 	}
@@ -467,6 +497,7 @@ void Control_Task(void)
 	if(sensor[SECOND_SENSOR].Sensor_flag == 3 && Uart_Flag.flag == 0)
 	{
 		Noreceive_time++;
+		belt_time = 0;
 		if(Noreceive_time >= NORECEIVE_WAIT_TIME)//触发传感器后等待一段时间，超过时间未收到上位机信息则执行任务
 		{	
 			Noreceive_Task(Noreceive_Cast[0].Noreceive_Number);
@@ -498,8 +529,8 @@ void Init_Task(void)
 	Motor_Control(MOTOR2,motor[1].motor_speed,MOTOR_RUN);
 	Motor_Control(MOTOR3,motor[2].motor_speed,MOTOR_RUN);
 	//舵机初始化
-	Servo_Control(SERVO1,90,SERVO180);//识别处
-	Servo_Control(SERVO2,90,SERVO270);//识别处
+	Servo_Control(SERVO1,0,SERVO270);//识别处
+	Servo_Control(SERVO2,270,SERVO270);//识别处
 	//打开通信串口DMA接收
 	HAL_UART_Receive_DMA(&huart1,rx_buffer,BUFFER_SIZE);
 }

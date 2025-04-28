@@ -1,6 +1,6 @@
 Dependencies for Project 'RUBBISH_V2', Target 'RUBBISH_V2': (DO NOT MODIFY !)
 CompilerVersion: 5060061::V5.06 update 1 (build 61)::ARMCC
-F (startup_stm32f103xb.s)(0x67FB806E)(--cpu Cortex-M3 -g --apcs=interwork -I ../Core/Inc-I.\RTE\_RUBBISH_V2-ID:\Keil\ARM\Pack\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\ARM\Pack\Keil\STM32F1xx_DFP\2.4.1\Device\Include--pd "__UVISION_VERSION SETA 542" --pd "STM32F10X_MD SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f103xb.lst --xref -o rubbish_v2\startup_stm32f103xb.o --depend rubbish_v2\startup_stm32f103xb.d)
+F (startup_stm32f103xb.s)(0x680474D5)(--cpu Cortex-M3 -g --apcs=interwork -I ../Core/Inc-I.\RTE\_RUBBISH_V2-ID:\Keil\ARM\Pack\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\ARM\Pack\Keil\STM32F1xx_DFP\2.4.1\Device\Include--pd "__UVISION_VERSION SETA 542" --pd "STM32F10X_MD SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f103xb.lst --xref -o rubbish_v2\startup_stm32f103xb.o --depend rubbish_v2\startup_stm32f103xb.d)
 F (../Core/Src/main.c)(0x67FB806D)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3-I.\RTE\_RUBBISH_V2-ID:\Keil\ARM\Pack\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\ARM\Pack\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o rubbish_v2\main.o --omf_browse rubbish_v2\main.crf --depend rubbish_v2\main.d)
 I (../Core/Inc/main.h)(0x67F1F944)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6707CAC7)
@@ -54,7 +54,7 @@ I (../BSP/bsp_task.h)(0x67FE0F13)
 I (../BSP/eeprom.h)(0x67E8AEE5)
 I (../BSP/bsp_uart.h)(0x67F2074F)
 I (D:\Keil\ARM\ARMCC\include\string.h)(0x569DEA3A)
-F (../Core/Src/gpio.c)(0x67FB717D)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3-I.\RTE\_RUBBISH_V2-ID:\Keil\ARM\Pack\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\ARM\Pack\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o rubbish_v2\gpio.o --omf_browse rubbish_v2\gpio.crf --depend rubbish_v2\gpio.d)
+F (../Core/Src/gpio.c)(0x680474CF)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3-I.\RTE\_RUBBISH_V2-ID:\Keil\ARM\Pack\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\ARM\Pack\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o rubbish_v2\gpio.o --omf_browse rubbish_v2\gpio.crf --depend rubbish_v2\gpio.d)
 I (../Core/Inc/gpio.h)(0x67E7C6A9)
 I (../Core/Inc/main.h)(0x67F1F944)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6707CAC7)
@@ -133,7 +133,7 @@ I (D:\Keil\ARM\ARMCC\include\string.h)(0x569DEA3A)
 I (D:\Keil\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
 I (../BSP/bsp_uart.h)(0x67F2074F)
 I (../Core/Inc/usart.h)(0x67EF4F5B)
-I (../BSP/sensor.h)(0x67F1F6F6)
+I (../BSP/sensor.h)(0x680FAC5D)
 I (D:\Keil\ARM\ARMCC\include\stdbool.h)(0x569DEA3A)
 I (../BSP/bsp_motor.h)(0x67EF63A6)
 I (../BSP/key.h)(0x67F1F423)
@@ -774,7 +774,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6707CAC7)
 I (../Core/Inc/usart.h)(0x67EF4F5B)
 I (D:\Keil\ARM\ARMCC\include\string.h)(0x569DEA3A)
 F (..\BSP\syn6288.h)(0x67E7CAFF)()
-F (..\BSP\bsp_motor.c)(0x67F1F938)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3-I.\RTE\_RUBBISH_V2-ID:\Keil\ARM\Pack\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\ARM\Pack\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o rubbish_v2\bsp_motor.o --omf_browse rubbish_v2\bsp_motor.crf --depend rubbish_v2\bsp_motor.d)
+F (..\BSP\bsp_motor.c)(0x680357F7)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3-I.\RTE\_RUBBISH_V2-ID:\Keil\ARM\Pack\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\ARM\Pack\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o rubbish_v2\bsp_motor.o --omf_browse rubbish_v2\bsp_motor.crf --depend rubbish_v2\bsp_motor.d)
 I (..\BSP\bsp_motor.h)(0x67EF63A6)
 I (../Core/Inc/main.h)(0x67F1F944)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6707CAC7)
@@ -906,8 +906,8 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x6707CAC7)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x6707CAC7)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6707CAC7)
 F (..\BSP\eeprom.h)(0x67E8AEE5)()
-F (..\BSP\sensor.c)(0x67F1F6F6)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3-I.\RTE\_RUBBISH_V2-ID:\Keil\ARM\Pack\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\ARM\Pack\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o rubbish_v2\sensor.o --omf_browse rubbish_v2\sensor.crf --depend rubbish_v2\sensor.d)
-I (..\BSP\sensor.h)(0x67F1F6F6)
+F (..\BSP\sensor.c)(0x68064A72)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3-I.\RTE\_RUBBISH_V2-ID:\Keil\ARM\Pack\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\ARM\Pack\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o rubbish_v2\sensor.o --omf_browse rubbish_v2\sensor.crf --depend rubbish_v2\sensor.d)
+I (..\BSP\sensor.h)(0x680FAC5D)
 I (../Core/Inc/main.h)(0x67F1F944)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6707CAC7)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x67E8ADFB)
@@ -941,7 +941,7 @@ I (..\BSP\bsp_motor.h)(0x67EF63A6)
 I (../Core/Inc/usart.h)(0x67EF4F5B)
 I (..\BSP\bsp_uart.h)(0x67F2074F)
 I (..\BSP\syn6288.h)(0x67E7CAFF)
-F (..\BSP\sensor.h)(0x67F1F6F6)()
+F (..\BSP\sensor.h)(0x680FAC5D)()
 F (..\BSP\key.c)(0x67FE0DA7)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3-I.\RTE\_RUBBISH_V2-ID:\Keil\ARM\Pack\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\ARM\Pack\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o rubbish_v2\key.o --omf_browse rubbish_v2\key.crf --depend rubbish_v2\key.d)
 I (..\BSP\key.h)(0x67F1F423)
 I (../Core/Inc/main.h)(0x67F1F944)
@@ -974,7 +974,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x6707CAC7)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6707CAC7)
 I (D:\Keil\ARM\ARMCC\include\stdbool.h)(0x569DEA3A)
 F (..\BSP\key.h)(0x67F1F423)()
-F (..\BSP\bsp_task.c)(0x67FE0F13)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3-I.\RTE\_RUBBISH_V2-ID:\Keil\ARM\Pack\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\ARM\Pack\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o rubbish_v2\bsp_task.o --omf_browse rubbish_v2\bsp_task.crf --depend rubbish_v2\bsp_task.d)
+F (..\BSP\bsp_task.c)(0x680FAC5D)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../BSP -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3-I.\RTE\_RUBBISH_V2-ID:\Keil\ARM\Pack\ARM\CMSIS\6.1.0\CMSIS\Core\Include-ID:\Keil\ARM\Pack\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o rubbish_v2\bsp_task.o --omf_browse rubbish_v2\bsp_task.crf --depend rubbish_v2\bsp_task.d)
 I (..\BSP\bsp_task.h)(0x67FE0F13)
 I (../Core/Inc/main.h)(0x67F1F944)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6707CAC7)
@@ -1009,7 +1009,7 @@ I (D:\Keil\ARM\ARMCC\include\stdbool.h)(0x569DEA3A)
 I (..\BSP\bsp_motor.h)(0x67EF63A6)
 I (..\BSP\bsp_servo.h)(0x67EB5718)
 I (..\BSP\bsp_uart.h)(0x67F2074F)
-I (..\BSP\sensor.h)(0x67F1F6F6)
+I (..\BSP\sensor.h)(0x680FAC5D)
 I (../Core/Inc/tim.h)(0x67FB806C)
 I (..\BSP\eeprom.h)(0x67E8AEE5)
 I (..\BSP\oled.h)(0x67E9484C)
