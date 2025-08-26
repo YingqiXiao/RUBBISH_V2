@@ -33,6 +33,8 @@
 #include "usart.h"
 #include "bsp_uart.h"
 #include "string.h"
+#include "bsp_math.h"
+#include "bsp_motor.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

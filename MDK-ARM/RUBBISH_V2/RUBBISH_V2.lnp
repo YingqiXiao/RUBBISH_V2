@@ -33,6 +33,7 @@
 "rubbish_v2\key.o"
 "rubbish_v2\bsp_task.o"
 "rubbish_v2\bsp_uart.o"
+"rubbish_v2\bsp_math.o"
 "rubbish_v2\croutine.o"
 "rubbish_v2\event_groups.o"
 "rubbish_v2\list.o"

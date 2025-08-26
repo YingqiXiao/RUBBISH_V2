@@ -7,7 +7,8 @@
 #define OTHER 2
 #define KITCHEN 3
 #define HARM 4
-#define NORECEIVE_WAIT_TIME 500 //单位：10ms
+
+#define NORECEIVE_WAIT_TIME 700 //单位：10ms
 #define LOCK 0
 #define UNLOCK 1
 

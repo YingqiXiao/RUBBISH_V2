@@ -241,7 +241,7 @@ void Sen_Task(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	Sensor_Task();
+	Sensor_Task();	  
     osDelay(10);
   }
   /* USER CODE END Sen_Task */

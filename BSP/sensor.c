@@ -5,10 +5,13 @@
 #include "bsp_uart.h"
 #include "syn6288.h"
 #include "stdbool.h"
+#include "bsp_math.h"
 
 sensor_t sensor[6] = {0,0};
 uint32_t Warn_time = 0;//满载警报，传感器被遮挡时间
 uint32_t belt_time = 0;//二级传送带启动时一级传送带延时一段时间启动
+
+
 
 /**
 *   @brief  传感器状态读取任务
@@ -82,7 +85,7 @@ void Sensor_Judge(void)
 	}
 
 	/*如果传感器进入延时状态，则二级传送带运行，一级传送带停止*/
-	if(sensor[FIRST_SENSOR].Sensor_flag == 4 && sensor[SECOND_SENSOR].Sensor_flag == 4)
+	if(sensor[FIRST_SENSOR].Sensor_flag != 0 && sensor[FIRST_SENSOR].Sensor_flag != 2 && sensor[SECOND_SENSOR].Sensor_flag == 4)
 	{
 		Motor_Control(MOTOR3,motor[2].motor_speed,MOTOR_RUN);
 		Motor_Control(MOTOR2,0,MOTOR_STOP);
@@ -98,6 +101,10 @@ void Sensor_Judge(void)
 		belt_time = 0;
 	}
 
+}
+
+void warn_task(void)
+{
 	/*如果满载传感器检测到满载，则向上位机发送满载信号，同时语音播报*/
 	for(uint8_t i = 0;i <= 3;i++)
 	{
@@ -113,7 +120,7 @@ void Sensor_Judge(void)
 				//v[0~16]:0朗读音量为静音，16朗读音量最大
 				//t[0~5]:0朗读语速最慢，5朗读语速最快
 				//其他不常用功能请参考数据手册	
-				SYN_FrameInfo(0, "[v1][m1][t5]满载警报");						
+				SYN_FrameInfo(0, "[v7][m1][t5]满载警报");						
 			}
 
 			/*向上位机发送满载信息*/
@@ -127,5 +134,5 @@ void Sensor_Judge(void)
 			}
 			
 		}
-	}
+	}	
 }

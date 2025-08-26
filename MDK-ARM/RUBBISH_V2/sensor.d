@@ -34,3 +34,4 @@ rubbish_v2\sensor.o: ..\BSP\bsp_motor.h
 rubbish_v2\sensor.o: ../Core/Inc/usart.h
 rubbish_v2\sensor.o: ..\BSP\bsp_uart.h
 rubbish_v2\sensor.o: ..\BSP\syn6288.h
+rubbish_v2\sensor.o: ..\BSP\bsp_math.h

@@ -828,6 +828,16 @@
               <FileType>5</FileType>
               <FilePath>..\BSP\bsp_uart.h</FilePath>
             </File>
+            <File>
+              <FileName>bsp_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\bsp_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\BSP\bsp_math.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

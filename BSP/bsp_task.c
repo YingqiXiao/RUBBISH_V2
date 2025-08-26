@@ -12,6 +12,7 @@
 #include "bsp_uart.h"
 #include "sensor.h"
 #include "string.h"
+#include "syn6288.h"
 
 uint32_t Receive_time = 0;//上位机正常识别垃圾
 uint8_t Motor_Number = 0;//电机序号
@@ -25,14 +26,18 @@ bool Lock_flag = 0;
 *   @return none
 *   @author Aoyer
 */
-void Noreceive_Task(uint8_t Cast_Numebr)
+void Noreceive_Task(uint8_t Cast_Number)
 {
-	switch(Cast_Numebr)
+	switch(Cast_Number)
 	{	
 		case RECYCLE:
 		{
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 1)
 			{
+				tx_buffer[0] = 0x08;
+				tx_buffer[1] = 0x0D;
+				tx_buffer[2] = 0x09;
+				DMA_Usart_Send(tx_buffer, tx_len);	
 				Servo_Control(SERVO1,90,SERVO270);
 				Servo_Control(SERVO2,180,SERVO270);
 			}
@@ -41,7 +46,7 @@ void Noreceive_Task(uint8_t Cast_Numebr)
 				Servo_Control(SERVO2,270,SERVO270);
 			
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 200)
-				Servo_Control(SERVO1,0,SERVO270);
+				Servo_Control(SERVO1,6,SERVO270);
 			
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 300)
 			{				
@@ -64,16 +69,26 @@ void Noreceive_Task(uint8_t Cast_Numebr)
 		{	
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 1)
 			{
+				tx_buffer[0] = 0x08;
+				tx_buffer[1] = 0x0D;
+				tx_buffer[2] = 0x09;
+				DMA_Usart_Send(tx_buffer, tx_len);					
 				Servo_Control(SERVO1,270,SERVO270);
 				Servo_Control(SERVO2,0,SERVO270);
 			}
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 200)
-				Servo_Control(SERVO2,270,SERVO270);
+				Servo_Control(SERVO2,90,SERVO270);
 			
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 300)
-				Servo_Control(SERVO1,0,SERVO270);			
+				Servo_Control(SERVO1,180,SERVO270);			
 
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 400)
+			{
+				Servo_Control(SERVO1,6,SERVO270);
+				Servo_Control(SERVO2,270,SERVO270);
+			}				
+			
+			if(Noreceive_time == NORECEIVE_WAIT_TIME + 600)
 			{
 				Uart_Flag.flag = 0;
 				
@@ -94,8 +109,12 @@ void Noreceive_Task(uint8_t Cast_Numebr)
 		{
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 1)
 			{
-				Servo_Control(SERVO1,0,SERVO270);
-				Servo_Control(SERVO2,180,SERVO270);
+				tx_buffer[0] = 0x08;
+				tx_buffer[1] = 0x0D;
+				tx_buffer[2] = 0x09;
+				DMA_Usart_Send(tx_buffer, tx_len);					
+				Servo_Control(SERVO1,6,SERVO270);
+				Servo_Control(SERVO2,190,SERVO270);
 			}
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 100)
 				Servo_Control(SERVO2,270,SERVO270);
@@ -121,18 +140,26 @@ void Noreceive_Task(uint8_t Cast_Numebr)
 		{
 			if(Noreceive_time == NORECEIVE_WAIT_TIME + 1)
 			{
+				tx_buffer[0] = 0x08;
+				tx_buffer[1] = 0x0D;
+				tx_buffer[2] = 0x09;
+				DMA_Usart_Send(tx_buffer, tx_len);					
 				Servo_Control(SERVO1,180,SERVO270);
 				Servo_Control(SERVO2,90,SERVO270);
 			}
-			if(Noreceive_time == NORECEIVE_WAIT_TIME + 100)
-				Servo_Control(SERVO2,270,SERVO270);
+			if(Noreceive_time == NORECEIVE_WAIT_TIME + 150)
+				Servo_Control(SERVO2,180,SERVO270);
 
-			if(Noreceive_time == NORECEIVE_WAIT_TIME + 200)
+			if(Noreceive_time == NORECEIVE_WAIT_TIME + 250)
 			{
-				Servo_Control(SERVO1,0,SERVO270);
+				Servo_Control(SERVO1,90,SERVO270);
 			}
-			
-			if(Noreceive_time == NORECEIVE_WAIT_TIME + 300)
+			if(Noreceive_time == NORECEIVE_WAIT_TIME + 350)
+			{
+				Servo_Control(SERVO1,6,SERVO270);
+				Servo_Control(SERVO2,270,SERVO270);
+			}			
+			if(Noreceive_time == NORECEIVE_WAIT_TIME + 450)
 			{
 				Uart_Flag.flag = 0;
 				
@@ -158,15 +185,35 @@ void Noreceive_Task(uint8_t Cast_Numebr)
 *   @return none
 *   @author Aoyer
 */
-void Cast_Task(uint8_t Cast_Numebr)
+void Cast_Task(uint8_t Cast_Number)
 {
-	switch(Cast_Numebr)
+	if(Cast_Number != 1 && Cast_Number != 2 && Cast_Number != 3 && Cast_Number != 4)
+	{
+		Uart_Flag.flag = 0;
+		
+		/*分类完成后传感器进入延时状态，二级传送带继续运行，一级传送带停止等待延时时间结束*/
+		sensor[FIRST_SENSOR].Sensor_flag = 4;
+		sensor[SECOND_SENSOR].Sensor_flag = 4;
+		
+		Servo_Control(SERVO2,270,SERVO270);
+		Servo_Control(SERVO1,6,SERVO270);
+		
+		Noreceive_time = 0;
+		Receive_time = 0;
+
+	}
+	
+	switch(Cast_Number)
 	{	
 		case RECYCLE:
 		{
 			
 			if(Receive_time == 1)
 			{
+				tx_buffer[0] = 0x08;
+				tx_buffer[1] = 0x0D;
+				tx_buffer[2] = 0x09;
+				DMA_Usart_Send(tx_buffer, tx_len);				
 				Servo_Control(SERVO1,90,SERVO270);
 				Servo_Control(SERVO2,180,SERVO270);
 			}
@@ -175,7 +222,7 @@ void Cast_Task(uint8_t Cast_Numebr)
 				Servo_Control(SERVO2,270,SERVO270);
 
 			if(Receive_time == 200)
-				Servo_Control(SERVO1,0,SERVO270);
+				Servo_Control(SERVO1,6,SERVO270);
 			
 			if(Receive_time == 300)
 			{				
@@ -186,6 +233,7 @@ void Cast_Task(uint8_t Cast_Numebr)
 				sensor[SECOND_SENSOR].Sensor_flag = 4;
 				
 				Receive_time = 0;
+				Noreceive_time = 0;
 				tx_buffer[0] = 0x08;
 				tx_buffer[1] = 0x02;
 				tx_buffer[2] = 0x09;
@@ -198,17 +246,26 @@ void Cast_Task(uint8_t Cast_Numebr)
 		{	
 			if(Receive_time == 1)
 			{
+				tx_buffer[0] = 0x08;
+				tx_buffer[1] = 0x0D;
+				tx_buffer[2] = 0x09;
+				DMA_Usart_Send(tx_buffer, tx_len);					
 				Servo_Control(SERVO1,270,SERVO270);
 				Servo_Control(SERVO2,0,SERVO270);
 			}
-			
 			if(Receive_time == 200)
-				Servo_Control(SERVO2,270,SERVO270);
+				Servo_Control(SERVO2,90,SERVO270);
 			
 			if(Receive_time == 300)
-				Servo_Control(SERVO1,0,SERVO270);
+				Servo_Control(SERVO1,180,SERVO270);			
 
 			if(Receive_time == 400)
+			{
+				Servo_Control(SERVO1,6,SERVO270);
+				Servo_Control(SERVO2,270,SERVO270);
+			}				
+			
+			if(Receive_time == 600)
 			{
 				Uart_Flag.flag = 0;
 				
@@ -216,20 +273,26 @@ void Cast_Task(uint8_t Cast_Numebr)
 				sensor[FIRST_SENSOR].Sensor_flag = 4;
 				sensor[SECOND_SENSOR].Sensor_flag = 4;
 				
+				Noreceive_time = 0;
 				Receive_time = 0;
 				tx_buffer[0] = 0x08;
 				tx_buffer[1] = 0x02;
 				tx_buffer[2] = 0x09;
 				DMA_Usart_Send(tx_buffer, tx_len);		
 			}
+			
 		}break;
 		
 		case HARM:
 		{
 			if(Receive_time == 1)
 			{
-				Servo_Control(SERVO1,0,SERVO270);
-				Servo_Control(SERVO2,180,SERVO270);
+				tx_buffer[0] = 0x08;
+				tx_buffer[1] = 0x0D;
+				tx_buffer[2] = 0x09;
+				DMA_Usart_Send(tx_buffer, tx_len);					
+				Servo_Control(SERVO1,6,SERVO270);
+				Servo_Control(SERVO2,190,SERVO270);
 				
 			}
 			
@@ -247,6 +310,7 @@ void Cast_Task(uint8_t Cast_Numebr)
 				sensor[SECOND_SENSOR].Sensor_flag = 4;
 				
 				Receive_time = 0;
+				Noreceive_time = 0;
 				tx_buffer[0] = 0x08;
 				tx_buffer[1] = 0x02;
 				tx_buffer[2] = 0x09;
@@ -260,19 +324,29 @@ void Cast_Task(uint8_t Cast_Numebr)
 		{
 			if(Receive_time == 1)
 			{
+				tx_buffer[0] = 0x08;
+				tx_buffer[1] = 0x0D;
+				tx_buffer[2] = 0x09;
+				DMA_Usart_Send(tx_buffer, tx_len);				
 				Servo_Control(SERVO1,180,SERVO270);
 				Servo_Control(SERVO2,90,SERVO270);
 			}
 			
-			if(Receive_time == 100)
-				Servo_Control(SERVO2,270,SERVO270);
+			if(Receive_time == 150)
+				Servo_Control(SERVO2,180,SERVO270);
 			
-			if(Receive_time == 200)
+			if(Receive_time == 250)
 			{
-				Servo_Control(SERVO1,0,SERVO270);
+				Servo_Control(SERVO1,90,SERVO270);
 			}
 			
-			if(Receive_time == 300)
+			if(Receive_time == 350)
+			{
+				Servo_Control(SERVO1,6,SERVO270);
+				Servo_Control(SERVO2,270,SERVO270);
+			}			
+			
+			if(Receive_time == 450)
 			{
 				Uart_Flag.flag = 0;
 				
@@ -281,6 +355,7 @@ void Cast_Task(uint8_t Cast_Numebr)
 				sensor[SECOND_SENSOR].Sensor_flag = 4;
 				
 				Receive_time = 0;
+				Noreceive_time = 0;
 				tx_buffer[0] = 0x08;
 				tx_buffer[1] = 0x02;
 				tx_buffer[2] = 0x09;
@@ -297,35 +372,35 @@ void Display_Task()
 	if(Key[2].Long_flag == 0)
 	{
 		char text[30];
-		sprintf(text,"M1_SPEED:%d",motor[0].motor_speed);
+		sprintf(text,"M1_SPEED:%d      ",motor[0].motor_speed);
 		OLED_ShowString(0,0,(uint8_t *)text,sizeof(text));
-		sprintf(text,"M2_SPEED:%d",motor[1].motor_speed);
+		sprintf(text,"M2_SPEED:%d      ",motor[1].motor_speed);
 		OLED_ShowString(0,1,(uint8_t *)text,sizeof(text));	
-		sprintf(text,"M3_SPEED:%d",motor[2].motor_speed);
+		sprintf(text,"M3_SPEED:%d      ",motor[2].motor_speed);
 		OLED_ShowString(0,2,(uint8_t *)text,sizeof(text));
 		switch(Noreceive_Cast[0].Noreceive_Number)
 		{
 			case RECYCLE:
 			{
-				sprintf(text,"CAST:RECYCLE");
+				sprintf(text,"CAST:RECYCLE      ");
 				OLED_ShowString(0,3,(uint8_t *)text,sizeof(text));	
 			}
 			break;
 			case OTHER:
 			{
-				sprintf(text,"CAST:OTHER");
+				sprintf(text,"CAST:OTHER      ");
 				OLED_ShowString(0,3,(uint8_t *)text,sizeof(text));	
 			}
 			break;	
 			case KITCHEN:
 			{
-				sprintf(text,"CAST:KITCHEN");
+				sprintf(text,"CAST:KITCHEN      ");
 				OLED_ShowString(0,3,(uint8_t *)text,sizeof(text));	
 			}
 			break;
 			case HARM:
 			{
-				sprintf(text,"CAST:HARM");
+				sprintf(text,"CAST:HARM      ");
 				OLED_ShowString(0,3,(uint8_t *)text,sizeof(text));	
 			}
 			break;		
@@ -339,12 +414,12 @@ void Display_Task()
 		
 		if(Lock_flag == 1)
 		{
-			sprintf(text,"UNLOCK");
+			sprintf(text,"UNLOCK      ");
 			OLED_ShowString(0,4,(uint8_t *)text,sizeof(text));				
 		}
 		else
 		{
-			sprintf(text,"LOCK");
+			sprintf(text,"LOCK       ");
 			OLED_ShowString(0,4,(uint8_t *)text,sizeof(text));					
 		}
 	}
@@ -368,6 +443,7 @@ void Key_Task(void)
 		if(Motor_Number > 2)
 		{
 			Motor_Number = 0;
+			
 		}
 
 		Key[2].Single_flag = 0;
@@ -485,10 +561,11 @@ void Control_Task(void)
 	/*收到上位机发送的识别到垃圾种类*/
 	if(Uart_Flag.flag != 0)
 	{
+		belt_time = 0;
 		Receive_time++;
 		/*收到上位机信息直接停止传送带*/
 		sensor[FIRST_SENSOR].Sensor_flag = 2;
-		sensor[SECOND_SENSOR].Sensor_flag = 2;
+		sensor[SECOND_SENSOR].Sensor_flag = 2;		
 		Cast_Task(Uart_Flag.flag);
 
 	}
@@ -499,11 +576,14 @@ void Control_Task(void)
 		Noreceive_time++;
 		belt_time = 0;
 		if(Noreceive_time >= NORECEIVE_WAIT_TIME)//触发传感器后等待一段时间，超过时间未收到上位机信息则执行任务
-		{	
+		{			
 			Noreceive_Task(Noreceive_Cast[0].Noreceive_Number);
 			
 		}
 	}
+
+	/*由于普通串口放在freeRTOS中会被打断导致无法发送信息所以提升优先级*/
+	warn_task();
 }
 
 /**
@@ -529,7 +609,7 @@ void Init_Task(void)
 	Motor_Control(MOTOR2,motor[1].motor_speed,MOTOR_RUN);
 	Motor_Control(MOTOR3,motor[2].motor_speed,MOTOR_RUN);
 	//舵机初始化
-	Servo_Control(SERVO1,0,SERVO270);//识别处
+	Servo_Control(SERVO1,6,SERVO270);//识别处
 	Servo_Control(SERVO2,270,SERVO270);//识别处
 	//打开通信串口DMA接收
 	HAL_UART_Receive_DMA(&huart1,rx_buffer,BUFFER_SIZE);

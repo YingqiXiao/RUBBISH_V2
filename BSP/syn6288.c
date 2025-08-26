@@ -33,7 +33,7 @@ void SYN_FrameInfo(uint8_t Music, uint8_t *HZdata)
   /*******************∑¢ÀÕ÷°–≈œ¢***************************************/
   memcpy(&Frame_Info[5], HZdata, HZ_Length);
   Frame_Info[5 + HZ_Length] = ecc;
-  HAL_UART_Transmit(&huart3,Frame_Info,5 + HZ_Length + 1,100);
+  HAL_UART_Transmit(&huart3,Frame_Info,5 + HZ_Length + 1,0xffff);
 }
 
 
